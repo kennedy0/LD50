@@ -116,7 +116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 759190599}
-  - component: {fileID: 759190600}
   m_Layer: 0
   m_Name: camera_ctrl
   m_TagString: Untagged
@@ -140,14 +139,6 @@ Transform:
   m_Father: {fileID: 8044324883225582523}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &759190600
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759190598}
-  m_Enabled: 1
 --- !u!1 &963554775
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +150,7 @@ GameObject:
   - component: {fileID: 963554776}
   - component: {fileID: 963554778}
   - component: {fileID: 963554777}
+  - component: {fileID: 2110639659}
   m_Layer: 0
   m_Name: audio_ctrl
   m_TagString: Untagged
@@ -348,6 +340,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3646c3ca455400949b1ef0d88b5f6893, type: 3}
   - {fileID: 8300000, guid: be035750b3b82e747916293fcac603e5, type: 3}
   - {fileID: 8300000, guid: e059af8a8164e8042a9c7ba2e743bd8b, type: 3}
+--- !u!81 &2110639659
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963554775}
+  m_Enabled: 1
 --- !u!1 &1291007765
 GameObject:
   m_ObjectHideFlags: 0
