@@ -28,7 +28,14 @@ public class HexGrid : MonoBehaviour
     /// </summary>
     private void InitHexGrid()
     {
+        // Starting point
         Generate(0, 0);
+        
+        // Surrounding ring
+        foreach (var coordinate in Utilities.NeighborCoordinates(0, 0))
+        {
+            Generate(coordinate.x, coordinate.y);
+        }
     }
 
     /// <summary>

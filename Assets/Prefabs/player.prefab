@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridX: 0
-  GridY: 0
+  GridY: 1
   Animator: {fileID: 8044324883594959139}
 --- !u!1001 &8044324883594959136
 PrefabInstance:
