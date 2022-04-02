@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     public Animator Animator;
 
+    private HexGrid _hexGrid;
     private Transform _player_ctrl;
 
     void Start()
     {
+        _hexGrid = GameObject.Find("GRID").GetComponent<HexGrid>();
         _player_ctrl = transform.Find("player_ctrl").GetComponent<Transform>();
 
         SnapToGridPosition(GridX, GridY);
@@ -79,10 +81,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void MoveDirection(Direction direction)
     {
-        SetFacingDirection(direction);
         var newPos = Utilities.TranslatePosition(GridX, GridY, direction);
         GridX = newPos.x;
         GridY = newPos.y;
+        
+        _hexGrid.Generate(GridX, GridY);
+        
+        SetFacingDirection(direction);
         Animator.Play("move");
         StartCoroutine(Move(newPos.x, newPos.y));
     }
@@ -92,25 +97,33 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator Move(int gx, int gy)
     {
-        SoundEffects.SoundEffectsMaster.PlayKnock();
+        // Move Start
         _isMoving = true;
+        bool playedLandingSound = false;
+        SoundEffects.SoundEffectsMaster.PlayKnock();
 
+        // Animation
         var startPos = transform.position;
         var endPos = Utilities.GridToWorldPosition(gx, gy);
-
         var timer = 0f;
         while (timer < _moveTime)
         {
             var t = timer / _moveTime;
             transform.position = Vector3.Lerp(startPos, endPos, t);
             timer += Time.deltaTime;
+
+            if (t >= .8f && !playedLandingSound)
+            {
+                SoundEffects.SoundEffectsMaster.PlayWood();
+                playedLandingSound = true;
+            }
+
             yield return null;
         }
-        
         SnapToGridPosition(gx, gy);
         
+        //Move End
         _isMoving = false;
-        SoundEffects.SoundEffectsMaster.PlayKnock();
     }
 
     /// <summary>

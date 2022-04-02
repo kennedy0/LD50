@@ -26,16 +26,28 @@ public class HexGrid : MonoBehaviour
     /// <summary>
     /// Create the hex grid.
     /// </summary>
-    void InitHexGrid()
+    private void InitHexGrid()
     {
-        int x;
-        int y;
-        
-        for (x = 0; x < Width; x++)
+        Generate(0, 0);
+    }
+
+    /// <summary>
+    /// Generate tiles from a given point. This is the main entry point for generating tiles.
+    /// </summary>
+    public void Generate(int gx, int gy)
+    {
+        if (!TileExists(gx, gy))
         {
-            for (y = 0; y < Height; y++)
+            AddTile(gx, gy);
+        }
+
+        foreach (var coordinate in Utilities.NeighborCoordinates(gx, gy))
+        {
+            var cx = coordinate.x;
+            var cy = coordinate.y;
+            if (!TileExists(cx, cy))
             {
-                AddTile(x, y);
+                AddTile(cx, cy);
             }
         }
     }
@@ -43,14 +55,14 @@ public class HexGrid : MonoBehaviour
     /// <summary>
     /// Add a tile to the grid.
     /// </summary>
-    public void AddTile(int gx, int gy)
+    private void AddTile(int gx, int gy)
     {
         // Tile gameobject
         var tile = Instantiate(Tile, transform);
         tile.name = $"Tile ({gx}, {gy})";
         tile.transform.position = Utilities.GridToWorldPosition(gx, gy);
         
-        // Add the cell component
+        // Add the tile component
         var hexTile = tile.AddComponent<HexTile>();
         hexTile.X = gx;
         hexTile.Y = gy;
@@ -65,5 +77,13 @@ public class HexGrid : MonoBehaviour
     public GameObject GetTile(int gx, int gy)
     {
         return _tiles[new Vector2Int(gx, gy)];
+    }
+
+    /// <summary>
+    /// Check if a tile exists at a coordinate.
+    /// </summary>
+    public bool TileExists(int gx, int gy)
+    {
+        return _tiles.ContainsKey(new Vector2Int(gx, gy));
     }
 }

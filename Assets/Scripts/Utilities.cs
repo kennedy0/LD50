@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Direction
@@ -117,5 +118,20 @@ public static class Utilities
         }
         
         return Quaternion.Euler(0f, rot, 0f);
+    }
+
+    /// <summary>
+    /// Get a list of neighbor coordinates.
+    /// </summary>
+    public static List<Vector2Int> NeighborCoordinates(int gx, int gy)
+    {
+        List<Vector2Int> coords = new List<Vector2Int>();
+        coords.Add(TranslatePosition(gx, gy, Direction.North));
+        coords.Add(TranslatePosition(gx, gy, Direction.South));
+        coords.Add(TranslatePosition(gx, gy, Direction.NorthWest));
+        coords.Add(TranslatePosition(gx, gy, Direction.NorthEast));
+        coords.Add(TranslatePosition(gx, gy, Direction.SouthWest));
+        coords.Add(TranslatePosition(gx, gy, Direction.SouthEast));
+        return coords;
     }
 }
