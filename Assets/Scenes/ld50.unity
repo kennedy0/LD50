@@ -176,6 +176,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8044324882597530518, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044324882597530518, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044324882597530518, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044324882597530518, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044324882597530518, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8044324883225582522, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
       propertyPath: m_Name
       value: player
