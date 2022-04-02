@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator Move(int gx, int gy)
     {
+        SoundEffects.SoundEffectsMaster.PlayKnock();
         _isMoving = true;
 
         var startPos = transform.position;
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
         SnapToGridPosition(gx, gy);
         
         _isMoving = false;
+        SoundEffects.SoundEffectsMaster.PlayKnock();
     }
 
     /// <summary>
