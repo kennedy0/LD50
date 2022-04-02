@@ -11,11 +11,11 @@ public class HexGrid : MonoBehaviour
     public int Width;
     public int Height;
 
-    private Dictionary<Vector2Int, GameObject> _tiles;
+    private Dictionary<Vector2Int, HexTile> _tiles;
 
     private void Awake()
     {
-        _tiles = new Dictionary<Vector2Int, GameObject>();
+        _tiles = new Dictionary<Vector2Int, HexTile>();
     }
 
     private void Start()
@@ -68,13 +68,13 @@ public class HexGrid : MonoBehaviour
         hexTile.Y = gy;
         
         // Add 
-        _tiles.Add(new Vector2Int(gx, gy), tile);
+        _tiles.Add(new Vector2Int(gx, gy), hexTile);
     }
 
     /// <summary>
     /// Get a tile from a position.
     /// </summary>
-    public GameObject GetTile(int gx, int gy)
+    public HexTile GetTile(int gx, int gy)
     {
         return _tiles[new Vector2Int(gx, gy)];
     }
