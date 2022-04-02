@@ -86,4 +86,36 @@ public static class Utilities
 
         throw new Exception("Couldn't get neighbor position!");
     }
+
+    /// <summary>
+    /// Get a rotation angle from a direction
+    /// </summary>
+    public static Quaternion RotationFromDirection(Direction direction)
+    {
+        float rot = 0f;
+        
+        switch (direction)
+        {
+            case Direction.North:
+                rot = 0f;
+                break;
+            case Direction.South:
+                rot = 180f;
+                break;
+            case Direction.NorthWest:
+                rot = -60f;
+                break;
+            case Direction.NorthEast:
+                rot = 60f;
+                break;
+            case Direction.SouthWest:
+                rot = 120f;
+                break;
+            case Direction.SouthEast:
+                rot = -120f;
+                break;
+        }
+        
+        return Quaternion.Euler(0f, rot, 0f);
+    }
 }

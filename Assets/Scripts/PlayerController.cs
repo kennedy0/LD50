@@ -14,12 +14,16 @@ public class PlayerController : MonoBehaviour
     private bool _canMove = true;
     private bool _isMoving = false;
     private float _moveTime = .333f;
-    
+
     [Header("Animation")]
     public Animator Animator;
 
+    private Transform _player_ctrl;
+
     void Start()
     {
+        _player_ctrl = transform.Find("player_ctrl").GetComponent<Transform>();
+
         SnapToGridPosition(GridX, GridY);
     }
 
@@ -75,6 +79,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void MoveDirection(Direction direction)
     {
+        SetFacingDirection(direction);
         var newPos = Utilities.TranslatePosition(GridX, GridY, direction);
         GridX = newPos.x;
         GridY = newPos.y;
@@ -104,5 +109,13 @@ public class PlayerController : MonoBehaviour
         SnapToGridPosition(gx, gy);
         
         _isMoving = false;
+    }
+
+    /// <summary>
+    /// Rotate the player to face a direction.
+    /// </summary>
+    public void SetFacingDirection(Direction direction)
+    {
+        _player_ctrl.rotation = Utilities.RotationFromDirection(direction);
     }
 }
