@@ -20,8 +20,11 @@ public class Campfire : MonoBehaviour
     public GameObject LogsMedium;
     public GameObject LogsHigh;
 
+    private Transform _fireCtrl;
+
     void Start()
     {
+        _fireCtrl = transform.Find("fire_ctrl");
         State = CampfireState.Medium;
         transform.position = Utilities.GridToWorldPosition(0, 0);
     }
@@ -51,21 +54,28 @@ public class Campfire : MonoBehaviour
         switch (state)
         {
             case CampfireState.Off:
+                _fireCtrl.gameObject.SetActive(false);
                 LogsLow.SetActive(false);
                 LogsMedium.SetActive(false);
                 LogsHigh.SetActive(false);
                 break;
             case CampfireState.Low:
+                _fireCtrl.gameObject.SetActive(true);
+                _fireCtrl.localScale = new Vector3(1f, 1f, 1f);
                 LogsLow.SetActive(true);
                 LogsMedium.SetActive(false);
                 LogsHigh.SetActive(false);
                 break;
             case CampfireState.Medium:
+                _fireCtrl.gameObject.SetActive(true);
+                _fireCtrl.localScale = new Vector3(3f, 2f, 3f);
                 LogsLow.SetActive(true);
                 LogsMedium.SetActive(true);
                 LogsHigh.SetActive(false);
                 break;
             case CampfireState.High:
+                _fireCtrl.localScale = new Vector3(4f, 2.5f, 4f);
+                _fireCtrl.gameObject.SetActive(true);
                 LogsLow.SetActive(true);
                 LogsMedium.SetActive(true);
                 LogsHigh.SetActive(true);
