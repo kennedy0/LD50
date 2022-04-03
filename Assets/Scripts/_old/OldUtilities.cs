@@ -4,17 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum Direction
-{
-    North,
-    South,
-    NorthWest,
-    NorthEast,
-    SouthWest,
-    SouthEast,
-}
-
-public static class Utilities
+public static class OldUtilities
 {
     public const float GRID_SPACING_X = .75f;
     public const float GRID_SPACING_Y = 6f/7f;
