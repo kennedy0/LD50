@@ -9,14 +9,29 @@ public class HexCell
     private int _r;
     private int _s;
     private Tile _tile;
-
+    
     public HexCell(HexGrid grid, int q, int r, int s)
     {
         _grid = grid;
         _q = q;
         _r = r;
         _s = s;
-        _tile = Grid.Board.NewTile(this);
+        CreateTile();
+    }
+    
+    /// <summary>
+    /// Create a tile linked to this cell.
+    /// </summary>
+    private void CreateTile()
+    {
+        var tileGameObject = Grid.Board.InstantiateTile();
+        _tile = tileGameObject.AddComponent<Tile>();
+        _tile.InitTile(this);
+    }
+
+    public override string ToString()
+    {
+        return $"HexCell({Q}, {R}, {S})";
     }
 
     public HexGrid Grid => _grid;
@@ -40,4 +55,12 @@ public class HexCell
     public HexCell SouthEast => Grid.GetCell(Q+1, R, S-1);
 
     public List<HexCell> Neighbors => new List<HexCell>{North, South, NorthEast, NorthWest, SouthEast, SouthWest};
+
+    /// <summary>
+    /// Get the distance to another cell.
+    /// </summary>
+    public int DistanceTo(HexCell cell)
+    {
+        return Utilities.CalculateDistance(Q, R, S, cell.Q, cell.R, cell.S);
+    }
 }

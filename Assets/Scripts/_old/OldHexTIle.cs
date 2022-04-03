@@ -48,7 +48,7 @@ public class OldHexTile : MonoBehaviour
     public void InitTile(float creationDelay)
     {
         // Set random rotation
-        _hexCtrl.localRotation = Utilities.RotationFromDirection(Utilities.RandomDirection());
+        _hexCtrl.localRotation = OldUtilities.RotationFromDirection(OldUtilities.RandomDirection());
         
         // Start the reveal animation
         StartCoroutine(RevealTile(creationDelay));

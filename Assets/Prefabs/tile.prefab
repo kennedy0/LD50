@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5409822756943901818}
   m_Layer: 0
-  m_Name: hex
+  m_Name: real_tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715018709488024035}
   m_Layer: 0
-  m_Name: hex_blank
+  m_Name: blank_tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2486753475893967470}
   m_Layer: 0
-  m_Name: hex_ctrl
+  m_Name: tile_ctrl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

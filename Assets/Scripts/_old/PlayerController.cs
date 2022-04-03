@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void SnapToGridPosition(int gx, int gy)
     {
-        transform.position = Utilities.GridToWorldPosition(gx, gy);
+        transform.position = OldUtilities.GridToWorldPosition(gx, gy);
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         var oldGridY = GridY;
         
         // Calculate new position
-        var newPos = Utilities.TranslatePosition(GridX, GridY, direction);
+        var newPos = OldUtilities.TranslatePosition(GridX, GridY, direction);
         GridX = newPos.x;
         GridY = newPos.y;
         
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
         // Animation
         var startPos = transform.position;
-        var endPos = Utilities.GridToWorldPosition(gx, gy);
+        var endPos = OldUtilities.GridToWorldPosition(gx, gy);
         var timer = 0f;
         while (timer < _moveTime)
         {
@@ -139,6 +139,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void SetFacingDirection(Direction direction)
     {
-        _player_ctrl.rotation = Utilities.RotationFromDirection(direction);
+        _player_ctrl.rotation = OldUtilities.RotationFromDirection(direction);
     }
 }

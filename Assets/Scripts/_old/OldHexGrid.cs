@@ -57,7 +57,7 @@ public class OldHexGrid : MonoBehaviour
         Generate(0, 0, distance);
         
         // Surrounding ring
-        foreach (var coordinate in Utilities.NeighborCoordinates(0, 0))
+        foreach (var coordinate in OldUtilities.NeighborCoordinates(0, 0))
         {
             Generate(coordinate.x, coordinate.y, 2);
         }
@@ -94,7 +94,7 @@ public class OldHexGrid : MonoBehaviour
             {
                 int tx = tileCoord.x;
                 int ty = tileCoord.y;
-                foreach (var neighborCoord in Utilities.NeighborCoordinates(tx, ty))
+                foreach (var neighborCoord in OldUtilities.NeighborCoordinates(tx, ty))
                 {
                     int nx = neighborCoord.x;
                     int ny = neighborCoord.y;
@@ -122,7 +122,7 @@ public class OldHexGrid : MonoBehaviour
         // Tile gameobject
         var tile = Instantiate(Tile, transform);
         tile.name = $"Tile ({gx}, {gy})";
-        tile.transform.position = Utilities.GridToWorldPosition(gx, gy);
+        tile.transform.position = OldUtilities.GridToWorldPosition(gx, gy);
         
         // Add the tile component
         var hexTile = tile.GetComponent<OldHexTile>();
@@ -184,7 +184,7 @@ public class OldHexGrid : MonoBehaviour
             HashSet<OldHexTile> newTiles = new HashSet<OldHexTile>();
             foreach (var tile in tiles)
             {
-                var neighborCoords = Utilities.NeighborCoordinates(tile.X, tile.Y);
+                var neighborCoords = OldUtilities.NeighborCoordinates(tile.X, tile.Y);
                 foreach (var nc in neighborCoords)
                 {
                     var t = GetTile(nc.x, nc.y);

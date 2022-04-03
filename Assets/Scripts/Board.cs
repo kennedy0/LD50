@@ -29,12 +29,10 @@ public class Board : MonoBehaviour
     }
 
     /// <summary>
-    ///  Create a new Tile GameObject linked to a cell.
+    ///  Create a new Tile GameObject.
     /// </summary>
-    public Tile NewTile(HexCell cell)
+    public GameObject InstantiateTile()
     {
-        var tileGameObject = Instantiate(TilePrefab);
-        var tile = tileGameObject.AddComponent<Tile>();
-        return tile;
+        return Instantiate(TilePrefab);
     }
 }
