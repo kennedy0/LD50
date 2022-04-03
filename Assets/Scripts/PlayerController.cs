@@ -16,9 +16,6 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving = false;
     private float _moveTime = .333f;
 
-    [Header("Stats")]
-    public int Sight = 1;
-
     [Header("Animation")]
     public Animator Animator;
 
@@ -85,13 +82,19 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void MoveDirection(Direction direction)
     {
+        // Store old position
+        var oldGridX = GridX;
+        var oldGridY = GridY;
+        
+        // Calculate new position
         var newPos = Utilities.TranslatePosition(GridX, GridY, direction);
         GridX = newPos.x;
         GridY = newPos.y;
         
         // ToDo: This should be part of the action system
-        _hexGrid.Generate(GridX, GridY, Sight);
+        _hexGrid.HandlePlayerPositionUpdate(oldGridX, oldGridY, GridX, GridY);
         
+        // Animation
         SetFacingDirection(direction);
         Animator.Play("move");
         StartCoroutine(Move(newPos.x, newPos.y));

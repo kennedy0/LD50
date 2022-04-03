@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using UnityEngine;
 
 
@@ -12,6 +13,12 @@ public class HexGrid : MonoBehaviour
 
     private Dictionary<Vector2Int, HexTile> _tiles;
     private float _tileCreationTimer = 0f;
+
+    private int _playerX = 0;
+    private int _playerY = 1;
+
+    public int PlayerX => _playerX;
+    public int PlayerY => _playerY;
 
     private void Awake()
     {
@@ -46,7 +53,8 @@ public class HexGrid : MonoBehaviour
     private void InitHexGrid()
     {
         // Starting point
-        Generate(0, 0);
+        var distance = 3;
+        Generate(0, 0, distance);
         
         // Surrounding ring
         foreach (var coordinate in Utilities.NeighborCoordinates(0, 0))
@@ -118,6 +126,7 @@ public class HexGrid : MonoBehaviour
         
         // Add the tile component
         var hexTile = tile.GetComponent<HexTile>();
+        hexTile.SetGrid(this);
         hexTile.X = gx;
         hexTile.Y = gy;
 
@@ -133,7 +142,12 @@ public class HexGrid : MonoBehaviour
     /// </summary>
     public HexTile GetTile(int gx, int gy)
     {
-        return _tiles[new Vector2Int(gx, gy)];
+        if (TileExists(gx, gy))
+        {
+            return _tiles[new Vector2Int(gx, gy)];
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -142,5 +156,72 @@ public class HexGrid : MonoBehaviour
     public bool TileExists(int gx, int gy)
     {
         return _tiles.ContainsKey(new Vector2Int(gx, gy));
+    }
+
+    /// <summary>
+    /// Get a tile and its surrounding neighbors.
+    /// Neighbors must exist to be returned.
+    /// ToDo: This is super inefficient, it should be reworked.
+    /// ToDo: This is very similar to Generate - that logic should be combined.
+    /// </summary>
+    public HashSet<HexTile> GetTiles(int gx, int gy, int distance)
+    {
+        // Depth must be at least 0.
+        if (distance < 0)
+        {
+            distance = 0;
+        }
+
+        // HashSet to store tiles
+        HashSet<HexTile> tiles = new HashSet<HexTile>();
+        tiles.Add(GetTile(gx, gy));
+
+        // Keep checking neighbors of tiles until distance is exhausted.
+        var d = distance;
+        while (d > 0)
+        {
+            d -= 1;
+            HashSet<HexTile> newTiles = new HashSet<HexTile>();
+            foreach (var tile in tiles)
+            {
+                var neighborCoords = Utilities.NeighborCoordinates(tile.X, tile.Y);
+                foreach (var nc in neighborCoords)
+                {
+                    var t = GetTile(nc.x, nc.y);
+                    if (t != null)
+                    {
+                        newTiles.Add(t);
+                    }
+                }
+            }
+            tiles.UnionWith(newTiles);
+        }
+        
+        return tiles;
+    }
+
+    /// <summary>
+    /// Runs when the player position is changed.
+    /// </summary>
+    public void HandlePlayerPositionUpdate(int old_gx, int old_gy, int new_gx, int new_gy)
+    {
+        // Store new player position
+        _playerX = new_gx;
+        _playerY = new_gy;
+
+        // Generate new tiles
+        var distance = 3;
+        Generate(new_gx, new_gy, distance);
+
+        // Get list of neighbors from old and new position
+        var oldNeighbors = GetTiles(old_gx, old_gy, distance);
+        var newNeighbors = GetTiles(new_gx, new_gy, distance);
+        var allNeighbors = oldNeighbors.Union(newNeighbors);
+        
+        // Call update player position on all neighbor tiles
+        foreach (var tile in allNeighbors)
+        {
+            tile.HandlePlayerPositionUpdate(old_gx, old_gy, new_gx, new_gy);
+        }
     }
 }
