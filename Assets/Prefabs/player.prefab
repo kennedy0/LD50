@@ -525,6 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridX: 0
   GridY: 1
+  Sight: 1
   Animator: {fileID: 8044324883594959139}
 --- !u!1001 &8044324883594959136
 PrefabInstance:

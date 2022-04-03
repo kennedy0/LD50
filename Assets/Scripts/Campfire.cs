@@ -19,13 +19,21 @@ public class Campfire : MonoBehaviour
     public GameObject LogsLow;
     public GameObject LogsMedium;
     public GameObject LogsHigh;
-
+    
     private Transform _fireCtrl;
+
+    [Header("Effects")]
+    private ParticleSystem _embers;
+    private ParticleSystem _emberBurst;
 
     void Start()
     {
         _fireCtrl = transform.Find("fire_ctrl");
+        _embers = transform.Find("embers").Find("ember_particles").GetComponent<ParticleSystem>();
+        _emberBurst = transform.Find("embers").Find("ember_burst_particles").GetComponent<ParticleSystem>();
+        
         State = CampfireState.Medium;
+        
         transform.position = Utilities.GridToWorldPosition(0, 0);
     }
 
@@ -46,6 +54,10 @@ public class Campfire : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SetLevel(CampfireState.High);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _emberBurst.Play();
         }
     }
 

@@ -110,10 +110,10 @@ public static class Utilities
                 rot = 60f;
                 break;
             case Direction.SouthWest:
-                rot = 120f;
+                rot = -120f;
                 break;
             case Direction.SouthEast:
-                rot = -120f;
+                rot = 120f;
                 break;
         }
         

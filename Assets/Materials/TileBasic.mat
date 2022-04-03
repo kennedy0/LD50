@@ -24,5 +24,5 @@ Material:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 0}
     - _FrontColor: {r: 0.318, g: 0.2429663, b: 0.13934831, a: 0}
     - _SideColor: {r: 0.34901962, g: 0.15294118, b: 0.19020423, a: 0}
-    - _TopColor: {r: 0.1305009, g: 0.16299999, b: 0.10725399, a: 0}
+    - _TopColor: {r: 0.050166063, g: 0.106000006, b: 0.022048002, a: 0}
   m_BuildTextureStacks: []

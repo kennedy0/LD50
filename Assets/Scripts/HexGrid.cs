@@ -98,11 +98,11 @@ public class HexGrid : MonoBehaviour
         tile.transform.position = Utilities.GridToWorldPosition(gx, gy);
         
         // Add the tile component
-        var hexTile = tile.AddComponent<HexTile>();
+        var hexTile = tile.GetComponent<HexTile>();
         hexTile.X = gx;
         hexTile.Y = gy;
         
-        // Add 
+        // Add to tile collection
         _tiles.Add(new Vector2Int(gx, gy), hexTile);
     }
 
