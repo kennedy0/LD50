@@ -34,28 +34,50 @@ public class HexGrid : MonoBehaviour
         // Surrounding ring
         foreach (var coordinate in Utilities.NeighborCoordinates(0, 0))
         {
-            Generate(coordinate.x, coordinate.y);
+            Generate(coordinate.x, coordinate.y, 2);
         }
     }
 
     /// <summary>
     /// Generate tiles from a given point. This is the main entry point for generating tiles.
+    /// Depth determines how many neighbors are generated.
+    ///     0 = no neighbors
+    ///     1 = neighbors 1 space away
+    ///     2 = neighbors 2 spaces away
+    ///     etc.
     /// </summary>
-    public void Generate(int gx, int gy)
+    public void Generate(int gx, int gy, int distance = 0)
     {
-        if (!TileExists(gx, gy))
+        // Depth must be at least 0.
+        if (distance < 0)
         {
-            AddTile(gx, gy);
+            distance = 0;
         }
 
-        foreach (var coordinate in Utilities.NeighborCoordinates(gx, gy))
+        // Keep track of tiles we've added
+        HashSet<Vector2Int> addedTiles = new HashSet<Vector2Int>();
+        
+        // Always add the requested tiles
+        AddTile(gx, gy);
+        addedTiles.Add(new Vector2Int(gx, gy));
+
+        while (distance > 0)
         {
-            var cx = coordinate.x;
-            var cy = coordinate.y;
-            if (!TileExists(cx, cy))
+            distance -= 1;
+            HashSet<Vector2Int> newlyAddedTiles = new HashSet<Vector2Int>();
+            foreach (var tileCoord in addedTiles)
             {
-                AddTile(cx, cy);
+                int tx = tileCoord.x;
+                int ty = tileCoord.y;
+                foreach (var neighborCoord in Utilities.NeighborCoordinates(tx, ty))
+                {
+                    int nx = neighborCoord.x;
+                    int ny = neighborCoord.y;
+                    AddTile(nx, ny);
+                    newlyAddedTiles.Add(new Vector2Int(nx, ny));
+                }
             }
+            addedTiles.UnionWith(newlyAddedTiles);
         }
     }
 
@@ -64,6 +86,12 @@ public class HexGrid : MonoBehaviour
     /// </summary>
     private void AddTile(int gx, int gy)
     {
+        // Don't generate this tile if it already exists.
+        if (TileExists(gx, gy))
+        {
+            return;
+        }
+
         // Tile gameobject
         var tile = Instantiate(Tile, transform);
         tile.name = $"Tile ({gx}, {gy})";

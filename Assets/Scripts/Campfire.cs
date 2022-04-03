@@ -61,7 +61,7 @@ public class Campfire : MonoBehaviour
                 break;
             case CampfireState.Low:
                 _fireCtrl.gameObject.SetActive(true);
-                _fireCtrl.localScale = new Vector3(1f, 1f, 1f);
+                _fireCtrl.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 LogsLow.SetActive(true);
                 LogsMedium.SetActive(false);
                 LogsHigh.SetActive(false);
