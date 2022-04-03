@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1530676362}
   - component: {fileID: 1530676363}
   m_Layer: 0
-  m_Name: GRID
+  m_Name: BOARD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,11 +163,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1530676361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 999bb5df4b33b9441b79a4056a98a105, type: 3}
+  m_Script: {fileID: 11500000, guid: 23200987462b2064d953dd63983c76f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tile: {fileID: 4892273354051227485, guid: 34f5f811c7ab25a4dbbab1aebae33fdc, type: 3}
-  TileCreationDelay: 0.05
 --- !u!1001 &4838389204563605257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 4838389203920229818, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
       propertyPath: m_Name
       value: campfire
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838389203920229818, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4838389203920229821, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
       propertyPath: m_RootOrder
@@ -235,6 +237,10 @@ PrefabInstance:
     - target: {fileID: 8044324883225582522, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044324883225582522, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8044324883225582523, guid: a0084ab88cffe984ca4505c3b4dd60f5, type: 3}
       propertyPath: m_RootOrder
