@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c356bd8202cf9945b90309ff90e82ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlipTime: 0.5
+  FlipTime: 0.3
 --- !u!1001 &6153774805823472346
 PrefabInstance:
   m_ObjectHideFlags: 0

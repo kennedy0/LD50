@@ -8,15 +8,7 @@ public class AnimateHex : MonoBehaviour
     private float _timer = 0f;
     private bool _isPlaying = false;
     
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            PlayFlipAnimation();
-        }
-    }
-
-    private void PlayFlipAnimation()
+    public void PlayFlipAnimation()
     {
         if (_isPlaying)
         {
@@ -30,21 +22,22 @@ public class AnimateHex : MonoBehaviour
     {
         // Start animation
         _isPlaying = true;
+        SoundEffects.SoundEffectsMaster.PlayRockWobble();
         
         // Animate
-        Quaternion startRot = Quaternion.Euler(0f, 0f, -180f);
-        Quaternion endRot = Quaternion.Euler(0f, 0f, 0f);
+        Quaternion startRot = transform.rotation * Quaternion.Euler(0f, 0f, -180f);
+        Quaternion endRot = transform.rotation * Quaternion.Euler(0f, 0f, 0f);
         
         _timer = 0f;
         while (_timer < FlipTime)
         {
             _timer += Time.deltaTime;
             var t = _timer / FlipTime;
-            Quaternion.Lerp(startRot, endRot, t);
+            transform.localRotation = Quaternion.Lerp(startRot, endRot, t);
             yield return null;
         }
 
-        transform.rotation = endRot;
+        transform.localRotation = endRot;
 
         // End animation
         _isPlaying = false;

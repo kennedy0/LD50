@@ -167,8 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tile: {fileID: 4892273354051227485, guid: 34f5f811c7ab25a4dbbab1aebae33fdc, type: 3}
-  Width: 5
-  Height: 5
+  TileCreationDelay: 0.05
 --- !u!1001 &4838389204563605257
 PrefabInstance:
   m_ObjectHideFlags: 0

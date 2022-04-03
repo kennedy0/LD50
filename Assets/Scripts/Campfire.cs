@@ -32,38 +32,19 @@ public class Campfire : MonoBehaviour
         _embers = transform.Find("embers").Find("ember_particles").GetComponent<ParticleSystem>();
         _emberBurst = transform.Find("embers").Find("ember_burst_particles").GetComponent<ParticleSystem>();
         
-        State = CampfireState.Medium;
-        
         transform.position = Utilities.GridToWorldPosition(0, 0);
+        
+        SetLevel(CampfireState.Low);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            SetLevel(CampfireState.Off);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetLevel(CampfireState.Low);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetLevel(CampfireState.Medium);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetLevel(CampfireState.High);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _emberBurst.Play();
-        }
     }
 
     public void SetLevel(CampfireState state)
     {
-        switch (state)
+        State = state;
+        switch (State)
         {
             case CampfireState.Off:
                 _fireCtrl.gameObject.SetActive(false);

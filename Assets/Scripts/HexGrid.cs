@@ -8,10 +8,10 @@ using UnityEngine;
 public class HexGrid : MonoBehaviour
 {
     public GameObject Tile;
-    public int Width;
-    public int Height;
+    public float TileCreationDelay = .1f;
 
     private Dictionary<Vector2Int, HexTile> _tiles;
+    private float _tileCreationTimer = 0f;
 
     private void Awake()
     {
@@ -21,6 +21,23 @@ public class HexGrid : MonoBehaviour
     private void Start()
     {
         InitHexGrid();
+    }
+
+    private void Update()
+    {
+        UpdateTileCreationTimer();
+    }
+
+    /// <summary>
+    /// Global timer to delay tile creation. 
+    /// </summary>
+    private void UpdateTileCreationTimer()
+    {
+        _tileCreationTimer -= Time.deltaTime;
+        if (_tileCreationTimer < 0f)
+        {
+            _tileCreationTimer = 0f;
+        }
     }
 
     /// <summary>
@@ -92,6 +109,8 @@ public class HexGrid : MonoBehaviour
             return;
         }
 
+        _tileCreationTimer += TileCreationDelay;
+
         // Tile gameobject
         var tile = Instantiate(Tile, transform);
         tile.name = $"Tile ({gx}, {gy})";
@@ -101,9 +120,12 @@ public class HexGrid : MonoBehaviour
         var hexTile = tile.GetComponent<HexTile>();
         hexTile.X = gx;
         hexTile.Y = gy;
-        
+
         // Add to tile collection
         _tiles.Add(new Vector2Int(gx, gy), hexTile);
+        
+        // Trigger the creation of the tile
+        hexTile.InitTile(_tileCreationTimer);
     }
 
     /// <summary>

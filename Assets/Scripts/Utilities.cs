@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum Direction
 {
@@ -16,6 +18,8 @@ public static class Utilities
 {
     public const float GRID_SPACING_X = .75f;
     public const float GRID_SPACING_Y = 6f/7f;
+
+    private static System.Random _random = new System.Random();
     
     /// <summary>
     /// Convert a grid position to a world position.
@@ -133,5 +137,17 @@ public static class Utilities
         coords.Add(TranslatePosition(gx, gy, Direction.SouthWest));
         coords.Add(TranslatePosition(gx, gy, Direction.SouthEast));
         return coords;
+    }
+
+    /// <summary>
+    /// Returns a random Direction.
+    /// </summary>
+    public static Direction RandomDirection()
+    {
+        var directionList = Enum.GetValues(typeof(Direction))
+            .Cast<Direction>()
+            .ToList();
+        var index = _random.Next(directionList.Count);
+        return directionList[index];
     }
 }
