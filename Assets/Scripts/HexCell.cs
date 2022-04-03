@@ -8,6 +8,7 @@ public class HexCell
     private int _q;
     private int _r;
     private int _s;
+    private Tile _tile;
 
     public HexCell(HexGrid grid, int q, int r, int s)
     {
@@ -15,6 +16,7 @@ public class HexCell
         _q = q;
         _r = r;
         _s = s;
+        _tile = Grid.Board.NewTile(this);
     }
 
     public HexGrid Grid => _grid;
@@ -25,17 +27,17 @@ public class HexCell
     
     public int S => _s;
 
-    public HexCell North => Grid.Cell(Q, R-1, S+1);
+    public HexCell North => Grid.GetCell(Q, R-1, S+1);
     
-    public HexCell South => Grid.Cell(Q, R+1, S-1);
+    public HexCell South => Grid.GetCell(Q, R+1, S-1);
     
-    public HexCell NorthWest => Grid.Cell(Q-1, R, S+1);
+    public HexCell NorthWest => Grid.GetCell(Q-1, R, S+1);
     
-    public HexCell NorthEast => Grid.Cell(Q+1, R-1, S);
+    public HexCell NorthEast => Grid.GetCell(Q+1, R-1, S);
     
-    public HexCell SouthWest => Grid.Cell(Q-1, R+1, S);
+    public HexCell SouthWest => Grid.GetCell(Q-1, R+1, S);
     
-    public HexCell SouthEast => Grid.Cell(Q+1, R, S-1);
+    public HexCell SouthEast => Grid.GetCell(Q+1, R, S-1);
 
     public List<HexCell> Neighbors => new List<HexCell>{North, South, NorthEast, NorthWest, SouthEast, SouthWest};
 }
