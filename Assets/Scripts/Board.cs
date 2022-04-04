@@ -5,7 +5,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [Header("Board Setup")]
-    public int StartingSize = 3;
+    public int StartingSize = 2;
     public GameObject TilePrefab;
     
     private HexGrid _grid;

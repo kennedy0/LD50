@@ -42,6 +42,8 @@ public class HexCell
     
     public int S => _s;
 
+    public Vector3 WorldPosition => Utilities.GridToWorldPosition(Q, R, S);
+
     public HexCell North => Grid.GetCell(Q, R-1, S+1);
     
     public HexCell South => Grid.GetCell(Q, R+1, S-1);

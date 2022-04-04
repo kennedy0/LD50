@@ -6,6 +6,9 @@ public class TileAnimator : MonoBehaviour
     private float _timer;
     private bool _isPlaying;
     
+    /// <summary>
+    /// Trigger the flip animation.
+    /// </summary>
     public void PlayFlipAnimation(float flipTime)
     {
         if (_isPlaying)
@@ -16,11 +19,17 @@ public class TileAnimator : MonoBehaviour
         StartCoroutine(Flip(flipTime));
     }
 
+    /// <summary>
+    /// Plays when the tile flip happens.
+    /// </summary>
     private void PlayFlipSound()
     {
         SoundEffects.SoundEffectsMaster.PlayRockWobble();
     }
 
+    /// <summary>
+    /// Flip animation.
+    /// </summary>
     private IEnumerator Flip(float flipTime)
     {
         // Start animation
