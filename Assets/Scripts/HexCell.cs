@@ -35,6 +35,8 @@ public class HexCell
     }
 
     public HexGrid Grid => _grid;
+
+    public Tile Tile => _tile;
     
     public int Q => _q;
     
@@ -58,11 +60,21 @@ public class HexCell
 
     public List<HexCell> Neighbors => new List<HexCell>{North, South, NorthEast, NorthWest, SouthEast, SouthWest};
 
+    public bool IsVisible => GetVisibility();
+
     /// <summary>
     /// Get the distance to another cell.
     /// </summary>
     public int DistanceTo(HexCell cell)
     {
         return Utilities.CalculateDistance(Q, R, S, cell.Q, cell.R, cell.S);
+    }
+
+    /// <summary>
+    /// Returns whether or not this cell is visible.
+    /// </summary>
+    private bool GetVisibility()
+    {
+        return false;
     }
 }

@@ -15,6 +15,8 @@ public class Board : MonoBehaviour
     
     private HexGrid _grid;
 
+    public HexGrid Grid => _grid;
+
     public HexCell PlayerStartCell => _grid.GetCell(PlayerStartPosition);
     
     public HexCell CampfireStartCell => _grid.GetCell(CampfireStartPosition);

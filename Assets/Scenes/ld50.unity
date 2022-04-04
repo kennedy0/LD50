@@ -605,13 +605,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 17991977, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
+      propertyPath: m_Pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 17991977, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
+      propertyPath: m_Volume
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 4838389203920229818, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
       propertyPath: m_Name
       value: campfire
       objectReference: {fileID: 0}
     - target: {fileID: 4838389203920229818, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4838389203920229821, guid: cc61c5f37eec15d409765608f06f3638, type: 3}
       propertyPath: m_RootOrder

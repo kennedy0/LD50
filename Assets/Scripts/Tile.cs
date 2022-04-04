@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
     private GameObject _blankTile;
     private TileAnimator _animator;
 
-    private const float FLIP_TIME = .2f;
+    private const float FLIP_TIME = .15f;
     private static float _revealTimer;
 
     private void Awake()
@@ -41,12 +41,13 @@ public class Tile : MonoBehaviour
 
     /// <summary>
     /// Visual setup and animation the first time the tile is revealed.
+    /// ToDo: Put this in a separate TileRevealer component that can delete itself when it's done.
     /// </summary>
     private IEnumerator RevealTile()
     {
         _revealTimer += FLIP_TIME;
         yield return new WaitForSeconds(_revealTimer);
-        _blankTile.SetActive(true);
+        _realTile.SetActive(true);  // ToDo: Always use a method to see if real/blank tile should be used
         _animator.PlayFlipAnimation(FLIP_TIME);
     }
 

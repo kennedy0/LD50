@@ -21,8 +21,8 @@ Material:
     m_TexEnvs: []
     m_Floats: []
     m_Colors:
-    - _BottomColor: {r: 0.08330365, g: 0.08330365, b: 0.254717, a: 0}
-    - _FrontColor: {r: 0.2163581, g: 0.2163581, b: 0.4811321, a: 1}
-    - _SideColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
-    - _TopColor: {r: 0.08926662, g: 0.25720897, b: 0.4811321, a: 0}
+    - _BottomColor: {r: 0.13956922, g: 0.13956922, b: 0.432, a: 0}
+    - _FrontColor: {r: 0.32597566, g: 0.32597566, b: 0.72900003, a: 1}
+    - _SideColor: {r: 0.545, g: 0.545, b: 0.545, a: 0}
+    - _TopColor: {r: 0.14417073, g: 0.4137075, b: 0.77099997, a: 0}
   m_BuildTextureStacks: []

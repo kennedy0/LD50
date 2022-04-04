@@ -50,11 +50,11 @@ public class HexGrid
         
         // Iterate over range to find cells where the max distance is less than the range.
         // https://www.redblobgames.com/grids/hexagons/#range
-        for (var i = -range; i < range+1; i++)
+        for (var i = q-range; i < q+range+1; i++)
         {
-            for (var j = -range; j < range+1; j++)
+            for (var j = r-range; j < r+range+1; j++)
             {
-                for (var k = -range; k < range+1; k++)
+                for (var k = s-range; k < s+range+1; k++)
                 {
                     if (i + j + k == 0)
                     {
@@ -86,7 +86,6 @@ public class HexGrid
 
     /// <summary>
     /// Create cells centered around a coordinate.
-    /// 
     /// </summary>
     public void MakeCells(int q, int r, int s, int distance = 0)
     {
