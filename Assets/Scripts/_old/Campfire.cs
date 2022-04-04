@@ -32,7 +32,7 @@ public class Campfire : MonoBehaviour
         _embers = transform.Find("embers").Find("ember_particles").GetComponent<ParticleSystem>();
         _emberBurst = transform.Find("embers").Find("ember_burst_particles").GetComponent<ParticleSystem>();
         
-        SetLevel(CampfireState.Low);
+        SetLevel(CampfireState.Off);
     }
 
     public void SetLevel(CampfireState state)
