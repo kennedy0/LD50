@@ -11,7 +11,8 @@ public class Tile : MonoBehaviour
     private GameObject _blankTile;
     private TileAnimator _animator;
 
-    private const float FLIP_TIME = .15f;
+    private const float REVEAL_DELAY_TIME = .05f;
+    private const float FLIP_TIME = .3f;
     private static float _revealTimer;
 
     private void Awake()
@@ -45,7 +46,7 @@ public class Tile : MonoBehaviour
     /// </summary>
     private IEnumerator RevealTile()
     {
-        _revealTimer += FLIP_TIME;
+        _revealTimer += REVEAL_DELAY_TIME;
         yield return new WaitForSeconds(_revealTimer);
         _realTile.SetActive(true);  // ToDo: Always use a method to see if real/blank tile should be used
         _animator.PlayFlipAnimation(FLIP_TIME);
