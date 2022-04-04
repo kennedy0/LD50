@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class OldPlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public int GridX;
