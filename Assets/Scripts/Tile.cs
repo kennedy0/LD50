@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
     private GameObject _blankTile;
     private TileAnimator _animator;
 
-    private const float FLIP_TIME = .1f;
+    private const float FLIP_TIME = .2f;
     private static float _revealTimer;
 
     private void Awake()
@@ -36,7 +36,7 @@ public class Tile : MonoBehaviour
         transform.position = Utilities.GridToWorldPosition(cell.Q, cell.R, cell.S);
         _tileCtrl.localRotation = Utilities.RandomRotation();
         
-        StartCoroutine(RevealTile());
+        StartCoroutine(RevealTile());  // ToDo: Don't reveal as soon as it's created, wait until the player is in some proximity
     }
 
     /// <summary>

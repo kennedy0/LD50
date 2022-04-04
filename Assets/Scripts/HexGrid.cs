@@ -30,6 +30,11 @@ public class HexGrid
         return _cells[new Vector3Int(q, r, s)];
     }
 
+    public HexCell GetCell(Vector3Int pos)
+    {
+        return GetCell(pos.x, pos.y, pos.z);
+    }
+
     /// <summary>
     /// Get all cells within range of a coordinate.
     /// </summary>

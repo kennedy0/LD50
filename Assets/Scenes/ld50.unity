@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254871558}
   m_Layer: 0
-  m_Name: player_model
+  m_Name: token_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -425,7 +425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23200987462b2064d953dd63983c76f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingSize: 4
+  StartingSize: 2
+  PlayerStartPosition: {x: 0, y: -1, z: 1}
+  CampfireStartPosition: {x: 0, y: 0, z: 0}
   TilePrefab: {fileID: 4892273354051227485, guid: 34f5f811c7ab25a4dbbab1aebae33fdc, type: 3}
 --- !u!1 &1883363370
 GameObject:
@@ -438,8 +440,9 @@ GameObject:
   - component: {fileID: 1883363371}
   - component: {fileID: 1883363373}
   - component: {fileID: 1883363372}
+  - component: {fileID: 1883363374}
   m_Layer: 0
-  m_Name: player
+  m_Name: token
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,6 +486,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffb96ceae9e5439ea9c1f68730d0ddbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1883363374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883363370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d599eac1b974a4bb9fac94383e88ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &543450652446096731
@@ -727,7 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3972269887058389479}
   m_Layer: 0
-  m_Name: player_ctrl
+  m_Name: token_ctrl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
