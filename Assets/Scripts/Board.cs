@@ -33,6 +33,6 @@ public class Board : MonoBehaviour
     /// </summary>
     public GameObject InstantiateTile()
     {
-        return Instantiate(TilePrefab);
+        return Instantiate(TilePrefab, transform);
     }
 }

@@ -25,7 +25,7 @@ public class HexCell
     private void CreateTile()
     {
         var tileGameObject = Grid.Board.InstantiateTile();
-        _tile = tileGameObject.AddComponent<Tile>();
+        _tile = tileGameObject.GetComponent<Tile>();
         _tile.InitTile(this);
     }
 
