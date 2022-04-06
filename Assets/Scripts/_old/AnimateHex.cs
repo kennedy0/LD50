@@ -6,22 +6,10 @@ public class AnimateHex : MonoBehaviour
     public float FlipTime = .5f;
 
     private float _timer = 0f;
-    private bool _isPlaying = false;
-    
-    public void PlayFlipAnimation()
-    {
-        if (_isPlaying)
-        {
-            return;
-        }
-
-        StartCoroutine(Flip());
-    }
 
     private IEnumerator Flip()
     {
         // Start animation
-        _isPlaying = true;
         SoundEffects.SoundEffectsMaster.PlayRockWobble();
         
         // Animate
@@ -40,6 +28,5 @@ public class AnimateHex : MonoBehaviour
         transform.localRotation = endRot;
 
         // End animation
-        _isPlaying = false;
     }
 }
