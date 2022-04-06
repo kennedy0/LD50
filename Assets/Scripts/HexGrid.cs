@@ -2,17 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Datatypes;
 using UnityEngine;
 
 public class HexGrid
 {
     private Board _board;
-    private Dictionary<Vector3Int, HexCell> _cells;
+    private Dictionary<Hex, HexCell> _cells;
 
     public HexGrid(Board board)
     {
         _board = board;
-        _cells = new Dictionary<Vector3Int, HexCell>();
+        _cells = new Dictionary<Hex, HexCell>();
     }
 
     public Board Board => _board;
@@ -27,12 +28,12 @@ public class HexGrid
             AddCell(q, r, s);
         }
 
-        return _cells[new Vector3Int(q, r, s)];
+        return _cells[new Hex(q, r, s)];
     }
 
-    public HexCell GetCell(Vector3Int pos)
+    public HexCell GetCell(Hex h)
     {
-        return GetCell(pos.x, pos.y, pos.z);
+        return GetCell(h.Q, h.R, h.S);
     }
 
     /// <summary>
@@ -67,12 +68,22 @@ public class HexGrid
         return cells;
     }
 
+    public List<HexCell> GetCells(Hex h, int range)
+    {
+        return GetCells(h.Q, h.R, h.S, range);
+    }
+
     /// <summary>
     /// Checks if a cell exists in the grid.
     /// </summary>
     private bool HasCell(int q, int r, int s)
     {
-        return _cells.ContainsKey(new Vector3Int(q, r, s));
+        return _cells.ContainsKey(new Hex(q, r, s));
+    }
+
+    private bool HasCell(Hex h)
+    {
+        return HasCell(h.Q, h.R, h.S);
     }
 
     /// <summary>
@@ -80,15 +91,26 @@ public class HexGrid
     /// </summary>
     private void AddCell(int q, int r, int s)
     {
-        var cell = new HexCell(this, q, r, s);
-        _cells.Add(new Vector3Int(q, r, s), cell);
+        var cell = new HexCell(q, r, s);
+        _cells.Add(new Hex(q, r, s), cell);
+    }
+
+    private void AddCell(Hex h)
+    {
+        AddCell(h.Q, h.R, h.S);
     }
 
     /// <summary>
     /// Create cells centered around a coordinate.
     /// </summary>
-    public void MakeCells(int q, int r, int s, int distance = 0)
+    public IEnumerator MakeCells(int q, int r, int s, int distance = 0)
     {
         GetCells(q, r, s, distance);
+        yield return null;
+    }
+
+    public IEnumerator MakeCells(Hex h, int distance = 0)
+    {
+        yield return MakeCells(h.Q, h.R, h.S, distance);
     }
 }

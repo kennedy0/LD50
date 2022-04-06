@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Datatypes;
 using UnityEngine;
 
 public class HexCell
 {
-    private HexGrid _grid;
     private int _q;
     private int _r;
     private int _s;
     private Tile _tile;
     
-    public HexCell(HexGrid grid, int q, int r, int s)
+    public HexCell(int q, int r, int s)
     {
-        _grid = grid;
         _q = q;
         _r = r;
         _s = s;
         CreateTile();
     }
     
+    public HexCell(Hex h)
+    {
+        _q = h.Q;
+        _r = h.R;
+        _s = h.S;
+        CreateTile();
+    }
+
     /// <summary>
     /// Create a tile linked to this cell.
     /// </summary>
@@ -34,7 +41,7 @@ public class HexCell
         return $"HexCell({Q}, {R}, {S})";
     }
 
-    public HexGrid Grid => _grid;
+    public HexGrid Grid => Board.Grid;
 
     public Tile Tile => _tile;
     
@@ -44,7 +51,9 @@ public class HexCell
     
     public int S => _s;
 
-    public Vector3 WorldPosition => Utilities.GridToWorldPosition(Q, R, S);
+    public Hex Position => new Hex(Q, R, S);
+
+    public Vector3 WorldPosition => Position.WorldPosition();
 
     public HexCell North => Grid.GetCell(Q, R-1, S+1);
     
@@ -67,7 +76,7 @@ public class HexCell
     /// </summary>
     public int DistanceTo(HexCell cell)
     {
-        return Utilities.CalculateDistance(Q, R, S, cell.Q, cell.R, cell.S);
+        return Hex.Distance(Position, cell.Position);
     }
 
     /// <summary>

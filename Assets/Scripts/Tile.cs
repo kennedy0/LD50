@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Tile : MonoBehaviour
 {
@@ -34,8 +35,12 @@ public class Tile : MonoBehaviour
     {
         _cell = cell;
         gameObject.name = $"Tile ({cell.Q}, {cell.R}, {cell.S})";
-        transform.position = Utilities.GridToWorldPosition(cell.Q, cell.R, cell.S);
-        _tileCtrl.localRotation = Utilities.RandomRotation();
+        transform.position = cell.WorldPosition;
+        
+        // Set random rotation
+        var rotations = new List<float> { 0f, 60f, 120f, 180f, 240f, 300f};
+        var randomRotation = rotations[UnityEngine.Random.Range(0, 6)];
+        _tileCtrl.localRotation = Quaternion.Euler(0f, randomRotation, 0f);
         
         StartCoroutine(RevealTile());  // ToDo: Don't reveal as soon as it's created, wait until the player is in some proximity
     }

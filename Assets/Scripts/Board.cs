@@ -1,47 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Datatypes;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    public static Board Instance;
+
     [Header("Board Setup")]
     public int StartingSize = 2;
-    public Vector3Int PlayerStartPosition = new Vector3Int(0, -1, 1);
-    public Vector3Int CampfireStartPosition = new Vector3Int(0, 0, 0);
+    public Hex PlayerStartPosition = new Hex(0, -1, 1);
+    public Hex CampfireStartPosition = new Hex(0, 0, 0);
     
     [Header("Prefabs")]
     public GameObject TilePrefab;
     
     private HexGrid _grid;
 
-    public HexGrid Grid => _grid;
-
-    public HexCell PlayerStartCell => _grid.GetCell(PlayerStartPosition);
-    
-    public HexCell CampfireStartCell => _grid.GetCell(CampfireStartPosition);
+    public static HexGrid Grid => Instance._grid;
 
     private void Awake()
     {
+        Instance = this;
         _grid = new HexGrid(this);
     }
 
-    private void Start()
-    {
-        SetupBoard();
-    }
-
-    /// <summary>
-    /// Sets up the board the first time it's created.
-    /// </summary>
-    private void SetupBoard()
-    {
-        // Grow selection in rings for a nice effect
-        for (var i = 0; i < StartingSize + 1; i++)
-        {
-            _grid.MakeCells(0, 0, 0, i);
-        }
-    }
 
     /// <summary>
     ///  Create a new Tile GameObject.
