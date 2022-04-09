@@ -23,10 +23,12 @@ public class GameSetup : MonoBehaviour
         
         HexCell campfireStart = new HexCell(Board.Instance.CampfireStartPosition);
         yield return TokenManager.CreateCampfire(campfireStart);
+
+        yield return SetupCamera();
     }
 
     /// <summary>
-    /// Sets up the board the first time it's created.
+    /// Set up the board the first time it's created.
     /// </summary>
     private static IEnumerator SetupBoard()
     {
@@ -35,5 +37,14 @@ public class GameSetup : MonoBehaviour
         {
             yield return Board.Grid.MakeCells(0, 0, 0, i);
         }
+    }
+
+    /// <summary>
+    /// Set up the camera after the tokens have been created.
+    /// </summary>
+    private static IEnumerator SetupCamera()
+    {
+        CameraFollow.SetTarget(Player.Transform);
+        yield return null;
     }
 }

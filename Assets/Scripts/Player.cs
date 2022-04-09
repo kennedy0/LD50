@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private static Player _instance;
+    
     private Actor _actor;
 
     private void Awake()
     {
+        _instance = this;
         _actor = GetComponent<Actor>();
     }
+
+    public static Transform Transform => _instance.transform;
 
     public void Update()
     {
