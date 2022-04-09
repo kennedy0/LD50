@@ -21,8 +21,18 @@ public class TokenManager : MonoBehaviour
     private static IEnumerator CreateToken(GameObject tokenPrefab, HexCell cell)
     {
         var tokenObject = Instantiate(tokenPrefab);
+        SetName(tokenObject);
         var actor = tokenObject.GetComponent<Actor>();
         yield return actor.Place(cell);
+    }
+
+    /// <summary>
+    /// Set the name of a newly created token.
+    /// </summary>
+    private static void SetName(GameObject go)
+    {
+        // Take '(Clone)' out of the name.
+        go.name = go.name.Replace("(Clone)", "");
     }
 
     public static IEnumerator CreatePlayer(HexCell cell)

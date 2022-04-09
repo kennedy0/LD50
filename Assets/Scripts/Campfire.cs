@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 public class Campfire : MonoBehaviour
 {
     private Actor _actor;
+
+    public HexCell Cell => _actor.Cell;
 
     private void Awake()
     {
@@ -14,11 +17,9 @@ public class Campfire : MonoBehaviour
 
     private void Update()
     {
-        if (!_actor.Ready)
+        if (_actor.ActionReady)
         {
-            return;
+            _actor.Action<Pass>(Cell);
         }
-        
-        _actor.Pass();
     }
 }

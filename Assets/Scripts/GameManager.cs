@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-
+    private static GameManager _instance;
     private int _round;
     private ActorList _actors;
     private bool _exitGameLoop = false;
 
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
 
         _round = 0;
         _actors = new ActorList();
@@ -61,10 +60,8 @@ public class GameManager : MonoBehaviour
         foreach (var actor in _actors)
         {
             yield return BeforeEachTurn();
-            Debug.Log($"{actor.name} turn start.");
             yield return actor.BeforeTurn();
             yield return actor.Turn();
-            Debug.Log($"{actor.name} turn end.");
             yield return actor.AfterTurn();
             yield return AfterEachTurn();
         }
@@ -102,6 +99,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void AddActor(Actor actor)
     {
-        Instance._actors.Add(actor);
+        _instance._actors.Add(actor);
     }
 }

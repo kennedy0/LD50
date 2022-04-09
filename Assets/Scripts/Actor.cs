@@ -1,27 +1,47 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Action = Actions.Action;
 
 public class Actor : MonoBehaviour
 {
     private HexCell _cell;
     private Token _token;
-    private bool _ready;
-    private bool _turnFinished;
+    private int _actions;
+    
+    private bool _isTurn;
+    private bool _actionReady;
+    private bool _actionFinished;
 
     public HexCell Cell => _cell;
     
     public Token Token => _token;
 
-    public bool Ready => _ready;
+    public int Actions => _actions;
+
+    public bool IsTurn => _isTurn;
+
+    public bool ActionReady => _actionReady;
 
     private void Awake()
     {
         _cell = null;
         _token = GetComponent<Token>();
-        _ready = false;
-        _turnFinished = false;
+        _actions = 1;
+
+        _isTurn = false;
+        _actionReady = false;
+        _actionFinished = false;
         
         GameManager.AddActor(this);
+    }
+
+    /// <summary>
+    /// Set the cell that the actor is on.
+    /// </summary>
+    public void SetCell(HexCell cell)
+    {
+        _cell = cell;
     }
 
     /// <summary>
@@ -29,8 +49,8 @@ public class Actor : MonoBehaviour
     /// </summary>
     public IEnumerator Place(HexCell cell)
     {
+        SetCell(cell);
         Token.SnapToCell(cell);
-        _cell = cell;
         yield return null;
     }
 
@@ -39,8 +59,8 @@ public class Actor : MonoBehaviour
     /// </summary>
     public IEnumerator BeforeTurn()
     {
-        _ready = true;
-        _turnFinished = false;
+        Debug.Log($"{this} turn start.");
+        _isTurn = true;
         yield return null;
     }
 
@@ -50,7 +70,21 @@ public class Actor : MonoBehaviour
     /// <returns></returns>
     public IEnumerator Turn()
     {
-        while (!_turnFinished)
+        for (var i = 0; i < Actions; i++)
+        {
+            _actionReady = true;
+            _actionFinished = false;
+            yield return WaitForAction();
+        }
+    }
+
+    /// <summary>
+    /// Wait for an action to be taken before proceeding.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForAction()
+    {
+        while (!_actionFinished)
         {
             yield return null;
         }
@@ -61,33 +95,34 @@ public class Actor : MonoBehaviour
     /// </summary>
     public IEnumerator AfterTurn()
     {
+        Debug.Log($"{this} turn end.");
+        _isTurn = false;
         yield return null;
     }
 
     /// <summary>
-    /// Move the actor to a cell.
+    /// Public entry point that tells this actor to perform an action on a cell.
     /// </summary>
-    public void Move(HexCell cell)
+    public void Action<T>(HexCell target) where T : Action, new()
     {
-        _ready = false;
-        StartCoroutine(DoMove(cell));
-    }
-    
-    private IEnumerator DoMove(HexCell cell)
-    {
-        var oldCell = _cell;
-        var newCell = cell;
-        yield return Token.Move(oldCell, newCell);
-        _cell = newCell;
-        _turnFinished = true;
+        if (!ActionReady)
+        {
+            Debug.LogError($"{this} cannot perform an action right now.");
+            return;
+        }
+
+        _actionReady = false;
+        var action = (T)Activator.CreateInstance(typeof(T));
+        StartCoroutine(DoAction(action, target));
     }
 
     /// <summary>
-    /// Skip the current move.
+    /// This is the coroutine that actually performs the action.
     /// </summary>
-    public void Pass()
+    private IEnumerator DoAction(Action action, HexCell target)
     {
-        _ready = false;
-        _turnFinished = true;
+        Debug.Log(action.ActionText(this, target));
+        yield return action.DoAction(this, target);
+        _actionFinished = true;
     }
 }
