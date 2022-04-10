@@ -5,21 +5,24 @@ using UnityEngine;
 
 public class TokenManager : MonoBehaviour
 {
-    public static TokenManager Instance;
-    
+    [Header("Special")]
     public GameObject Player;
-
     public GameObject Campfire;
+    
+    [Header("Resources")]
+    public GameObject Wood;
+    
+    private static TokenManager _instance;
 
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
     }
 
     /// <summary>
     /// Create a token on a cell.
     /// </summary>
-    private static IEnumerator CreateToken(GameObject tokenPrefab, HexCell cell)
+    private static void CreateToken(GameObject tokenPrefab, HexCell cell)
     {
         // Instantiate object
         var tokenObject = Instantiate(tokenPrefab);
@@ -28,8 +31,6 @@ public class TokenManager : MonoBehaviour
         // Initialize actor 
         var actor = tokenObject.GetComponent<Actor>();
         actor.Place(cell);
-        
-        yield return null;
     }
 
     /// <summary>
@@ -41,13 +42,18 @@ public class TokenManager : MonoBehaviour
         go.name = go.name.Replace("(Clone)", "");
     }
 
-    public static IEnumerator CreatePlayer(HexCell cell)
+    public static void CreatePlayer(HexCell cell)
     {
-        yield return CreateToken(Instance.Player, cell);
+        CreateToken(_instance.Player, cell);
     }
     
-    public static IEnumerator CreateCampfire(HexCell cell)
+    public static void CreateCampfire(HexCell cell)
     {
-        yield return CreateToken(Instance.Campfire, cell);
+        CreateToken(_instance.Campfire, cell);
+    }
+
+    public static void CreateWood(HexCell cell)
+    {
+        CreateToken(_instance.Wood, cell);
     }
 }

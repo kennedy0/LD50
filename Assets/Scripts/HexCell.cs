@@ -9,25 +9,19 @@ public class HexCell
     private int _r;
     private int _s;
     private Tile _tile;
+    
+    private int _height;
+    private Terrain _terrain;
 
     private bool _isVisibile;
+
     
     public HexCell(int q, int r, int s)
     {
         _q = q;
         _r = r;
         _s = s;
-
-        _isVisibile = false;
-    }
-    
-    public HexCell(Hex h)
-    {
-        _q = h.Q;
-        _r = h.R;
-        _s = h.S;
-        
-        _isVisibile = false;
+        InitRandomFeatures();
     }
 
     public override string ToString()
@@ -35,6 +29,20 @@ public class HexCell
         return $"HexCell({Q}, {R}, {S})";
     }
 
+    /// <summary>
+    /// Generate random features based on the cell's location.
+    /// </summary>
+    private void InitRandomFeatures()
+    {
+        _height = BoardGen.GenerateHeight(this);
+        _terrain = BoardGen.GenerateTerrain(this);
+        BoardGen.GenerateToken(this);
+    }
+
+    /// <summary>
+    /// Link this cell to a tile.
+    /// This process is deferred until the board generates new tiles for efficiency's sake.
+    /// </summary>
     public void LinkToTile(Tile tile)
     {
         if (_tile != null)
@@ -49,6 +57,8 @@ public class HexCell
     public HexGrid Grid => Board.Grid;
 
     public Tile Tile => _tile;
+
+    public int Height => _height;
     
     public int Q => _q;
     
@@ -58,6 +68,7 @@ public class HexCell
 
     public Hex Position => new Hex(Q, R, S);
 
+    // World position is always 0 on the Y-axis. Height is a separate parameter. 
     public Vector3 WorldPosition => Position.WorldPosition();
 
     public HexCell North => Grid.GetCell(Q, R-1, S+1);

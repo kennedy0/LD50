@@ -59,14 +59,11 @@ public class Board : MonoBehaviour
             var tileObject = Instantiate(Instance.TilePrefab, Instance.transform);
             var tile = tileObject.GetComponent<Tile>();
             
-            // Set tile name and position
-            tileObject.name = $"Tile ({cell.Q}, {cell.R}, {cell.S})";
-            tileObject.transform.position = cell.WorldPosition;
-            
             // Link cell and tile
             cell.LinkToTile(tile);
             tile.LinkToCell(cell);
 
+            
             // Tile reveal delay
             yield return new WaitForSeconds(Instance.TileRevealDelay);
         }

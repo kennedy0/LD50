@@ -40,14 +40,14 @@ public class TokenAnimator : MonoBehaviour
     /// <summary>
     /// Coroutine that moves and animates the token.
     /// </summary>
-    public IEnumerator PlayMoveAnimation(float moveTime, HexCell startCell, HexCell endCell)
+    public IEnumerator PlayMoveAnimation(float moveTime, Tile startTile, Tile endTile)
     {
         bool playedPutDownSound = false;
         PlayPickUpSound();
 
         // Store constant values
-        var startPos = startCell.WorldPosition;
-        var endPos = endCell.WorldPosition;
+        var startPos = startTile.WorldPosition;
+        var endPos = endTile.WorldPosition;
         var tokenCtrlStartRot = _tokenCtrl.localRotation;
         
         // Animate the token moving from one tile to another.

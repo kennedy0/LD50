@@ -19,10 +19,10 @@ public class GameSetup : MonoBehaviour
         yield return SetupBoard();
 
         HexCell playerStart = Board.Grid.GetCell(Board.Instance.PlayerStartPosition);
-        yield return TokenManager.CreatePlayer(playerStart);
+        TokenManager.CreatePlayer(playerStart);
         
         HexCell campfireStart = Board.Grid.GetCell(Board.Instance.CampfireStartPosition);
-        yield return TokenManager.CreateCampfire(campfireStart);
+        TokenManager.CreateCampfire(campfireStart);
 
         yield return SetupCamera();
     }

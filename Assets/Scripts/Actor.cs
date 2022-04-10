@@ -49,7 +49,7 @@ public class Actor : MonoBehaviour
     public void Place(HexCell cell)
     {
         SetCell(cell);
-        Token.SnapToCell(cell);
+        Token.SnapToTile(cell.Tile);
     }
 
     /// <summary>

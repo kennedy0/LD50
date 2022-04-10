@@ -24,7 +24,7 @@ namespace Actions
             actor.SetCell(newCell);
             
             // Token move animation
-            yield return actor.Token.Move(oldCell, newCell);
+            yield return actor.Token.Move(oldCell.Tile, newCell.Tile);
         }
     }
 }

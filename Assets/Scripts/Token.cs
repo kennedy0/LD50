@@ -24,28 +24,29 @@ public class Token : MonoBehaviour
     }
 
     /// <summary>
-    /// Move the token to a cell.
+    /// Move the token to a tile.
     /// </summary>
-    public IEnumerator Move(HexCell oldCell, HexCell newCell)
+    public IEnumerator Move(Tile oldTile, Tile newTile)
     {
-        FaceCell(oldCell, newCell);
-        yield return _animator.PlayMoveAnimation(MOVE_TIME, oldCell, newCell);
+        FaceTile(oldTile, newTile);
+        yield return _animator.PlayMoveAnimation(MOVE_TIME, oldTile, newTile);
     }
 
     /// <summary>
-    /// Snap the token to a position, without any animation.
+    /// Snap the token to a tile, without any animation.
     /// </summary>
-    public void SnapToCell(HexCell cell)
+    public void SnapToTile(Tile tile)
     {
-        transform.position = cell.WorldPosition;
+        transform.position = tile.WorldPosition;
     }
 
     /// <summary>
-    /// Face this token towards a cell.
+    /// Face this token towards a tile.
     /// </summary>
-    public void FaceCell(HexCell fromCell, HexCell toCell)
+    public void FaceTile(Tile currentTile, Tile facingTile)
     {
-        var target = (toCell.WorldPosition - fromCell.WorldPosition).normalized;
+        // Calculate based on the cell position (which is y-zero) to avoid wonky rotations.
+        var target = (facingTile.Cell.WorldPosition - currentTile.Cell.WorldPosition).normalized;
         _tokenCtrl.rotation = Quaternion.LookRotation(target);
     }
 }

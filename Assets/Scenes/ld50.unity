@@ -9885,6 +9885,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4944508679046506210, guid: 2b99579c4627f5c49823f1c71866dd99, type: 3}
+      propertyPath: Wood
+      value: 
+      objectReference: {fileID: 3789010261989705078, guid: 4989347c702e5684394e07f6bfec685d, type: 3}
     - target: {fileID: 4944508679046506211, guid: 2b99579c4627f5c49823f1c71866dd99, type: 3}
       propertyPath: m_Name
       value: TOKEN MANAGER
