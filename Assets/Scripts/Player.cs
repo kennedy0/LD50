@@ -22,9 +22,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Create tiles surrounding the player.
     /// </summary>
-    public static void MakeSurroundingTiles()
+    public void MakeSurroundingTiles()
     {
-        var range = _instance.TileCreationRange;
-        _instance.StartCoroutine(Board.MakeTiles(Actor.Cell.Q, Actor.Cell.R, Actor.Cell.S, range));
+        var range = TileCreationRange;
+        StartCoroutine(Board.MakeTiles(Actor.Cell.Q, Actor.Cell.R, Actor.Cell.S, range));
     }
 }

@@ -76,6 +76,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     private void OnCellChange(HexCell oldCell, HexCell newCell)
     {
+        GetComponent<Player>()?.MakeSurroundingTiles();
         GetComponent<LightSource>()?.UpdateVisibility(oldCell, newCell);
     }
 

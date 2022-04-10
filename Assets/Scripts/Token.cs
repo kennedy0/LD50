@@ -28,7 +28,7 @@ public class Token : MonoBehaviour
     /// </summary>
     public IEnumerator Move(HexCell oldCell, HexCell newCell)
     {
-        FaceCell(newCell);
+        FaceCell(oldCell, newCell);
         yield return _animator.PlayMoveAnimation(MOVE_TIME, oldCell, newCell);
     }
 
@@ -43,9 +43,9 @@ public class Token : MonoBehaviour
     /// <summary>
     /// Face this token towards a cell.
     /// </summary>
-    public void FaceCell(HexCell cell)
+    public void FaceCell(HexCell fromCell, HexCell toCell)
     {
-        
-        _tokenCtrl.rotation = Quaternion.LookRotation(Actor.Cell.WorldPosition - cell.WorldPosition);
+        var target = (toCell.WorldPosition - fromCell.WorldPosition).normalized;
+        _tokenCtrl.rotation = Quaternion.LookRotation(target);
     }
 }

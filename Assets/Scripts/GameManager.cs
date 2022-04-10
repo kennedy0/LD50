@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator AfterEachTurn()
     {
-        Player.MakeSurroundingTiles();
         yield return null;
     }
 
