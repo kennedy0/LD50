@@ -10043,10 +10043,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7190441013312600146, guid: d9b5afc45835fd54dbb8e668a9c2e199, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7190441013312600147, guid: d9b5afc45835fd54dbb8e668a9c2e199, type: 3}
       propertyPath: m_Name
       value: GAME MANAGER
@@ -10103,10 +10099,6 @@ PrefabInstance:
     - target: {fileID: 7714068347634366280, guid: a74af98d16238d8498f2c6aa9c50275c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7714068347634366281, guid: a74af98d16238d8498f2c6aa9c50275c, type: 3}
-      propertyPath: StartingSize
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7714068347634366283, guid: a74af98d16238d8498f2c6aa9c50275c, type: 3}
       propertyPath: m_Name
