@@ -9,12 +9,16 @@ public class HexCell
     private int _r;
     private int _s;
     private Tile _tile;
+
+    private bool _isVisibile;
     
     public HexCell(int q, int r, int s)
     {
         _q = q;
         _r = r;
         _s = s;
+
+        _isVisibile = false;
     }
     
     public HexCell(Hex h)
@@ -22,6 +26,8 @@ public class HexCell
         _q = h.Q;
         _r = h.R;
         _s = h.S;
+        
+        _isVisibile = false;
     }
 
     public override string ToString()
@@ -68,7 +74,7 @@ public class HexCell
 
     public List<HexCell> Neighbors => new List<HexCell>{North, South, NorthEast, NorthWest, SouthEast, SouthWest};
 
-    public bool IsVisible => GetVisibility();
+    public bool IsVisible => _isVisibile;
 
     /// <summary>
     /// Get the distance to another cell.
@@ -79,10 +85,11 @@ public class HexCell
     }
 
     /// <summary>
-    /// Returns whether or not this cell is visible.
+    /// Set the visibility of this cell.
     /// </summary>
-    private bool GetVisibility()
+    public void SetVisibility(bool visibility)
     {
-        return false;
+        _isVisibile = visibility;
+        Tile.UpdateVisibility();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Actions
@@ -17,8 +19,12 @@ namespace Actions
         {
             var oldCell = actor.Cell;
             var newCell = target;
-            yield return actor.Token.Move(oldCell, newCell);
+            
+            // Set the actor's cell
             actor.SetCell(newCell);
+            
+            // Token move animation
+            yield return actor.Token.Move(oldCell, newCell);
         }
     }
 }

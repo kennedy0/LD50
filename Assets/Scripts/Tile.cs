@@ -37,6 +37,6 @@ public class Tile : MonoBehaviour
     /// </summary>
     public void UpdateVisibility()
     {
-        _tileVisibility.UpdateVisibility();
+        StartCoroutine(_tileVisibility.UpdateVisibility());
     }
 }

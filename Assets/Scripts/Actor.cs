@@ -50,21 +50,33 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
+    /// Place this actor on a cell.
+    /// </summary>
+    public void Place(HexCell cell)
+    {
+        SetCell(cell);
+        Token.SnapToCell(cell);
+    }
+
+    /// <summary>
     /// Set the cell that the actor is on.
     /// </summary>
     public void SetCell(HexCell cell)
     {
-        _cell = cell;
+        var oldCell = _cell;
+        var newCell = cell;
+        
+        _cell = newCell;
+        OnCellChange(oldCell, newCell);
     }
 
     /// <summary>
-    /// Place the actor on a cell.
+    /// Send updates to neighboring cells when the position changes.
+    /// This logic happens here to avoid global updates after every action.
     /// </summary>
-    public IEnumerator Place(HexCell cell)
+    private void OnCellChange(HexCell oldCell, HexCell newCell)
     {
-        SetCell(cell);
-        Token.SnapToCell(cell);
-        yield return null;
+        GetComponent<LightSource>()?.UpdateVisibility(oldCell, newCell);
     }
 
     /// <summary>

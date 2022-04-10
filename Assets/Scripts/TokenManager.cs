@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 public class TokenManager : MonoBehaviour
@@ -20,10 +21,15 @@ public class TokenManager : MonoBehaviour
     /// </summary>
     private static IEnumerator CreateToken(GameObject tokenPrefab, HexCell cell)
     {
+        // Instantiate object
         var tokenObject = Instantiate(tokenPrefab);
         SetName(tokenObject);
+        
+        // Initialize actor 
         var actor = tokenObject.GetComponent<Actor>();
-        yield return actor.Place(cell);
+        actor.Place(cell);
+        
+        yield return null;
     }
 
     /// <summary>

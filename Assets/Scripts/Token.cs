@@ -45,6 +45,7 @@ public class Token : MonoBehaviour
     /// </summary>
     public void FaceCell(HexCell cell)
     {
-        _tokenCtrl.rotation = Quaternion.LookRotation(cell.WorldPosition - Actor.Cell.WorldPosition);
+        
+        _tokenCtrl.rotation = Quaternion.LookRotation(Actor.Cell.WorldPosition - cell.WorldPosition);
     }
 }

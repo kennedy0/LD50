@@ -26,21 +26,20 @@ public class TileVisibility : MonoBehaviour
     }
 
     /// <summary>
-    /// Check to see if this tile is within range of any light source.
-    /// ToDo: This check is extremely expensive.
+    /// Update the visibility on the tile based on the cell's visibility value.
     /// </summary>
-    public void UpdateVisibility()
+    public IEnumerator UpdateVisibility()
     {
-        ShowBlank();
-        
-        var lightSources = FindObjectsOfType<LightSource>();
-        foreach (var lightSource in lightSources)
+        if (_tile.Cell.IsVisible)
         {
-            if (lightSource.TileInRange(_tile))
-            {
-                ShowReal();
-            }
+            ShowReal();
         }
+        else
+        {
+            ShowBlank();
+        }
+
+        yield return null;
     }
 
     /// <summary>

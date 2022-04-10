@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23200987462b2064d953dd63983c76f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingSize: 2
+  StartingSize: 3
   PlayerStartPosition:
     Q: 0
     R: -1
@@ -53,3 +53,4 @@ MonoBehaviour:
     R: 0
     S: 0
   TilePrefab: {fileID: 4892273354051227485, guid: 34f5f811c7ab25a4dbbab1aebae33fdc, type: 3}
+  TileRevealDelay: 0.05
