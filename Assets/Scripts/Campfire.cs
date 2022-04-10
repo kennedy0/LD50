@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Actions;
 using UnityEngine;
 
+[RequireComponent(typeof(Actor))]
 public class Campfire : MonoBehaviour
 {
     private Actor _actor;

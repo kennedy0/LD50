@@ -1,6 +1,7 @@
 using Actions;
 using UnityEngine;
 
+[RequireComponent(typeof(Actor))]
 public class PlayerController : MonoBehaviour
 {
     private Actor _actor;

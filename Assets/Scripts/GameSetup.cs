@@ -18,10 +18,10 @@ public class GameSetup : MonoBehaviour
     {
         yield return SetupBoard();
 
-        HexCell playerStart = new HexCell(Board.Instance.PlayerStartPosition);
+        HexCell playerStart = Board.Grid.GetCell(Board.Instance.PlayerStartPosition);
         yield return TokenManager.CreatePlayer(playerStart);
         
-        HexCell campfireStart = new HexCell(Board.Instance.CampfireStartPosition);
+        HexCell campfireStart = Board.Grid.GetCell(Board.Instance.CampfireStartPosition);
         yield return TokenManager.CreateCampfire(campfireStart);
 
         yield return SetupCamera();
@@ -35,7 +35,7 @@ public class GameSetup : MonoBehaviour
         // Grow selection in rings for a nice effect
         for (var i = 0; i < Board.Instance.StartingSize + 1; i++)
         {
-            yield return Board.Grid.MakeCells(0, 0, 0, i);
+            yield return Board.MakeTiles(0, 0, 0, i);
         }
     }
 

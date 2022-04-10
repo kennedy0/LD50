@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Action = Actions.Action;
 
+[RequireComponent(typeof(Token))]
 public class Actor : MonoBehaviour
 {
+    public delegate IEnumerator TurnAction();
+    public event TurnAction OnTurnStart;
+    public event TurnAction OnActionStart;
+    public event TurnAction OnActionFinish;
+    public event TurnAction OnTurnFinish;
+    
     private HexCell _cell;
     private Token _token;
     private int _actions;
@@ -12,7 +20,7 @@ public class Actor : MonoBehaviour
     private bool _isTurn;
     private bool _actionReady;
     private bool _actionFinished;
-
+    
     public HexCell Cell => _cell;
     
     public Token Token => _token;
@@ -22,6 +30,11 @@ public class Actor : MonoBehaviour
     public bool IsTurn => _isTurn;
 
     public bool ActionReady => _actionReady;
+
+    public override string ToString()
+    {
+        return gameObject.name;
+    }
 
     private void Awake()
     {
@@ -61,6 +74,13 @@ public class Actor : MonoBehaviour
     {
         Debug.Log($"{this} turn start.");
         _isTurn = true;
+        
+        // Turn start callbacks
+        if (OnTurnStart != null)
+        {
+            yield return OnTurnStart();
+        }
+        
         yield return null;
     }
 
@@ -97,6 +117,13 @@ public class Actor : MonoBehaviour
     {
         Debug.Log($"{this} turn end.");
         _isTurn = false;
+        
+        // Turn finish callbacks
+        if (OnTurnFinish != null)
+        {
+            yield return OnTurnFinish();
+        }
+        
         yield return null;
     }
 
@@ -121,8 +148,21 @@ public class Actor : MonoBehaviour
     /// </summary>
     private IEnumerator DoAction(Action action, HexCell target)
     {
+        // Action start callbacks
+        if (OnActionStart != null)
+        {
+            yield return OnActionStart();
+        }
+        
+        // Action
         Debug.Log(action.ActionText(this, target));
         yield return action.DoAction(this, target);
         _actionFinished = true;
+        
+        // Action finish callbacks
+        if (OnActionFinish != null)
+        {
+            yield return OnActionFinish();
+        }
     }
 }

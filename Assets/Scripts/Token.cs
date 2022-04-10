@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Datatypes;
 using UnityEngine;
 
+[RequireComponent(typeof(Actor))]
+[RequireComponent(typeof(TokenAnimator))]
 public class Token : MonoBehaviour
 {
     private Actor _actor;

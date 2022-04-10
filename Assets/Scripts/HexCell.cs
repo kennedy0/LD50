@@ -15,7 +15,6 @@ public class HexCell
         _q = q;
         _r = r;
         _s = s;
-        CreateTile();
     }
     
     public HexCell(Hex h)
@@ -23,22 +22,22 @@ public class HexCell
         _q = h.Q;
         _r = h.R;
         _s = h.S;
-        CreateTile();
-    }
-
-    /// <summary>
-    /// Create a tile linked to this cell.
-    /// </summary>
-    private void CreateTile()
-    {
-        var tileGameObject = Grid.Board.InstantiateTile();
-        _tile = tileGameObject.GetComponent<Tile>();
-        _tile.InitTile(this);
     }
 
     public override string ToString()
     {
         return $"HexCell({Q}, {R}, {S})";
+    }
+
+    public void LinkToTile(Tile tile)
+    {
+        if (_tile != null)
+        {
+            Debug.LogError($"{this} is already linked to a tile.");
+            return;
+        }
+
+        _tile = tile;
     }
 
     public HexGrid Grid => Board.Grid;

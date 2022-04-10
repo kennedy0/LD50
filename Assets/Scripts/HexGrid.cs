@@ -37,6 +37,14 @@ public class HexGrid
     }
 
     /// <summary>
+    /// Get all cells on the grid.
+    /// </summary>
+    public List<HexCell> AllCells()
+    {
+        return _cells.Values.ToList();
+    }
+
+    /// <summary>
     /// Get all cells within range of a coordinate.
     /// </summary>
     public List<HexCell> GetCells(int q, int r, int s, int range)
@@ -98,19 +106,5 @@ public class HexGrid
     private void AddCell(Hex h)
     {
         AddCell(h.Q, h.R, h.S);
-    }
-
-    /// <summary>
-    /// Create cells centered around a coordinate.
-    /// </summary>
-    public IEnumerator MakeCells(int q, int r, int s, int distance = 0)
-    {
-        GetCells(q, r, s, distance);
-        yield return null;
-    }
-
-    public IEnumerator MakeCells(Hex h, int distance = 0)
-    {
-        yield return MakeCells(h.Q, h.R, h.S, distance);
     }
 }

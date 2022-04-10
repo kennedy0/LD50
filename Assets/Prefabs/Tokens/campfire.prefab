@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e320702d6e44db4ca8c18f667e561cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6078836888913433586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775683875208368243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354488ba0b67d0e44932da32b8386d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 2
 --- !u!1001 &1137074458300239243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,7 +111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1947399512119214600, guid: 58e7c5c0fffff994d9d3afd99f48b8c0, type: 3}
       propertyPath: m_Name
-      value: campfire
+      value: Campfire
       objectReference: {fileID: 0}
     - target: {fileID: 1947399512119214601, guid: 58e7c5c0fffff994d9d3afd99f48b8c0, type: 3}
       propertyPath: m_RootOrder

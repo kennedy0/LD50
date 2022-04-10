@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Datatypes;
 using UnityEngine;
 
@@ -13,8 +14,9 @@ public class Board : MonoBehaviour
     public Hex PlayerStartPosition = new Hex(0, -1, 1);
     public Hex CampfireStartPosition = new Hex(0, 0, 0);
     
-    [Header("Prefabs")]
+    [Header("Tiles")]
     public GameObject TilePrefab;
+    public float TileRevealDelay = .05f;
     
     private HexGrid _grid;
 
@@ -26,12 +28,58 @@ public class Board : MonoBehaviour
         _grid = new HexGrid(this);
     }
 
+    /// <summary>
+    /// Get all tiles on the board.
+    /// </summary>
+    public static List<Tile> AllTiles()
+    {
+        var tiles = new List<Tile>();
+        foreach (var cell in Grid.AllCells())
+        {
+            if (cell.Tile != null)
+            {
+                tiles.Add(cell.Tile);
+            }
+        }
+        
+        return tiles;
+    }
+
+    public static IEnumerator MakeTiles(int q, int r, int s, int distance = 0)
+    {
+        foreach (var cell in Grid.GetCells(q, r, s, distance))
+        {
+            // Skip if tile has already been created
+            if (cell.Tile != null)
+            {
+                continue;
+            }
+
+            // Create tile
+            var tileObject = Instantiate(Instance.TilePrefab, Instance.transform);
+            var tile = tileObject.GetComponent<Tile>();
+            
+            // Set tile name and position
+            tileObject.name = $"Tile ({cell.Q}, {cell.R}, {cell.S})";
+            tileObject.transform.position = cell.WorldPosition;
+            
+            // Link cell and tile
+            cell.LinkToTile(tile);
+            tile.LinkToCell(cell);
+
+            // Tile reveal delay
+            yield return new WaitForSeconds(Instance.TileRevealDelay);
+        }
+    }
 
     /// <summary>
-    ///  Create a new Tile GameObject.
+    /// Update visibility on all tiles.
     /// </summary>
-    public GameObject InstantiateTile()
+    public static void UpdateVisibility()
     {
-        return Instantiate(TilePrefab, transform);
+        foreach (var tile in AllTiles())
+        {
+            tile.UpdateVisibility();
+        }
     }
 }
