@@ -21,12 +21,25 @@ public class HexCell
         _q = q;
         _r = r;
         _s = s;
+
         InitRandomFeatures();
+        CreateTile();
     }
 
     public override string ToString()
     {
         return $"HexCell({Q}, {R}, {S})";
+    }
+
+    /// <summary>
+    /// Create the tile for this cell.
+    /// </summary>
+    private void CreateTile()
+    {
+        var tileObject = Board.InstantiateTile();
+        var tile = tileObject.GetComponent<Tile>();
+        _tile = tile;
+        tile.InitTile(this);
     }
 
     /// <summary>
@@ -37,21 +50,6 @@ public class HexCell
         _height = BoardGen.GenerateHeight(this);
         _terrain = BoardGen.GenerateTerrain(this);
         BoardGen.GenerateToken(this);
-    }
-
-    /// <summary>
-    /// Link this cell to a tile.
-    /// This process is deferred until the board generates new tiles for efficiency's sake.
-    /// </summary>
-    public void LinkToTile(Tile tile)
-    {
-        if (_tile != null)
-        {
-            Debug.LogError($"{this} is already linked to a tile.");
-            return;
-        }
-
-        _tile = tile;
     }
 
     public HexGrid Grid => Board.Grid;

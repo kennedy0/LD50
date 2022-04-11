@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Datatypes;
 using UnityEngine;
 
 public class GameSetup : MonoBehaviour
@@ -32,10 +33,15 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private static IEnumerator SetupBoard()
     {
-        // Grow selection in rings for a nice effect
+        // ToDo: Generate the starting region
+        yield return Board.GenerateRegion();
+        
+        // ToDo: Generate surrounding regions
+
+        // Reveal tiles in rings for a nice effect
         for (var i = 0; i < Board.Instance.StartingSize + 1; i++)
         {
-            yield return Board.MakeTiles(0, 0, 0, i);
+            yield return Board.RevealTiles(Hex.Zero, i);
         }
     }
 

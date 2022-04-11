@@ -7,11 +7,11 @@ namespace Datatypes
     /// Int-based hex coordinate
     /// </summary>
     [Serializable]
-    public struct Hex
+    public readonly struct Hex : IEquatable<Hex>
     {
-        public int Q;
-        public int R;
-        public int S;
+        public readonly int Q;
+        public readonly int R;
+        public readonly int S;
         
         public Hex(int q, int r, int s)
         {
@@ -19,7 +19,40 @@ namespace Datatypes
             R = r;
             S = s;
         }
-        
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Q;
+                hashCode = (hashCode * 397) ^ R;
+                hashCode = (hashCode * 397) ^ S;
+                return hashCode;
+            }
+        }
+
+        public bool Equals(Hex other)
+        {
+            return Q == other.Q && R == other.R && S == other.S;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Hex other && Equals(other);
+        }
+
+        public static bool operator ==(Hex a, Hex b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Hex a, Hex b)
+        {
+            return !(a == b);
+        }
+
+        public static Hex Zero = new Hex(0, 0, 0);
+
         /// <summary>
         /// Calculate the distance between 2 Hex coordinates.
         /// </summary>
@@ -30,7 +63,7 @@ namespace Datatypes
             var ds = Mathf.Abs(a.S - b.S);
             return (dq + dr + ds) / 2;
         }
-        
+
         /// <summary>
         /// Convert a grid position to a world position.
         /// Y coordinate is always zero.

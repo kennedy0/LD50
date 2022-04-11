@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using Datatypes;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int TileCreationRange = 2;
+    public int TileRevealRange = 3;
     
     private static Player _instance;
     private Actor _actor;
@@ -20,11 +21,36 @@ public class Player : MonoBehaviour
     public static Transform Transform => _instance.transform;
 
     /// <summary>
-    /// Create tiles surrounding the player.
+    /// Called when the player actor's cell changes
     /// </summary>
-    public void MakeSurroundingTiles()
+    public void OnCellChange(HexCell oldCell, HexCell newCell)
     {
-        var range = TileCreationRange;
-        StartCoroutine(Board.MakeTiles(Actor.Cell.Q, Actor.Cell.R, Actor.Cell.S, range));
+        GenerateNeighborRegions(oldCell, newCell);
+        RevealSurroundingTiles(oldCell, newCell);
+    }
+
+    /// <summary>
+    /// Generate large regions of the world adjacent to the player.
+    /// </summary>
+    private void GenerateNeighborRegions(HexCell oldCell, HexCell newCell)
+    {
+        // Exit if old or new cell are null.
+        if (oldCell == null || newCell == null)
+        {
+            return;
+        }
+
+        // ToDo: Exit if the region did not change.
+
+        // ToDo: Generate region for each neighbor.
+    }
+
+    /// <summary>
+    /// Reveal tiles near the player.
+    /// </summary>
+    private void RevealSurroundingTiles(HexCell oldCell, HexCell newCell)
+    {
+        var range = TileRevealRange;
+        StartCoroutine(Board.RevealTiles(newCell.Position, range));
     }
 }

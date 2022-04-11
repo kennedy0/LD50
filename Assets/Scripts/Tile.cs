@@ -9,10 +9,13 @@ public class Tile : MonoBehaviour
 {
     private HexCell _cell;
     private TileVisibility _tileVisibility;
+    private bool _isRevealed;
     
     public HexCell Cell => _cell;
 
     public Vector3 WorldPosition => GetWorldPosition();
+
+    public bool IsRevealed => _isRevealed;
 
     private void Awake()
     {
@@ -20,10 +23,11 @@ public class Tile : MonoBehaviour
     }
 
     /// <summary>
-    /// Link this tile to a cell.
+    /// Initialize this tile by linking it to its cell.
     /// </summary>
-    public void LinkToCell(HexCell cell)
+    public void InitTile(HexCell cell)
     {
+        // Link tile to cell.
         if (Cell != null)
         {
             Debug.LogError($"{this} is already linked to cell {cell}.");
@@ -31,17 +35,14 @@ public class Tile : MonoBehaviour
         }
 
         _cell = cell;
-    }
-
-    private void Start()
-    {
+        
         // Set tile name and position
-        gameObject.name = $"Tile ({Cell.Q}, {Cell.R}, {Cell.S})";
+        gameObject.name = $"Tile ({cell.Q}, {cell.R}, {cell.S})";
         transform.position = WorldPosition;
         
         // Set height of base piece
         var tileBase = transform.Find("tile_ctrl").Find("tile_base");
-        tileBase.localScale = new Vector3(1f, Cell.Height, 1f);
+        tileBase.localScale = new Vector3(1f, cell.Height, 1f);
     }
 
     /// <summary>
@@ -59,7 +60,24 @@ public class Tile : MonoBehaviour
     }
 
     /// <summary>
-    /// Show or hide the tile if it's near a light source.
+    /// Reveal this tile.
+    /// </summary>
+    public void Reveal()
+    {
+        if (IsRevealed)
+        {
+            Debug.LogError($"{this} has already been revealed.");
+            return;
+        }
+
+        // Reveal the tile
+        _isRevealed = true;
+        var revealer = GetComponent<TileRevealer>();
+        StartCoroutine(revealer.Reveal());
+    }
+
+    /// <summary>
+    /// Change the color on the tile if it's visible.
     /// </summary>
     public void UpdateVisibility()
     {

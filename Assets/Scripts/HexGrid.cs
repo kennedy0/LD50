@@ -89,11 +89,6 @@ public class HexGrid
         return _cells.ContainsKey(new Hex(q, r, s));
     }
 
-    private bool HasCell(Hex h)
-    {
-        return HasCell(h.Q, h.R, h.S);
-    }
-
     /// <summary>
     /// Adds a cell to the grid.
     /// </summary>
@@ -101,10 +96,5 @@ public class HexGrid
     {
         var cell = new HexCell(q, r, s);
         _cells.Add(new Hex(q, r, s), cell);
-    }
-
-    private void AddCell(Hex h)
-    {
-        AddCell(h.Q, h.R, h.S);
     }
 }

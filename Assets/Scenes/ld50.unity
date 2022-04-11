@@ -10104,6 +10104,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7714068347634366281, guid: a74af98d16238d8498f2c6aa9c50275c, type: 3}
+      propertyPath: TileRevealDelay
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7714068347634366283, guid: a74af98d16238d8498f2c6aa9c50275c, type: 3}
       propertyPath: m_Name
       value: BOARD

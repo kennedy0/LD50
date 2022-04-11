@@ -29,54 +29,37 @@ public class Board : MonoBehaviour
     }
 
     /// <summary>
-    /// Get all tiles on the board.
+    /// Instantiate a tile object.
     /// </summary>
-    public static List<Tile> AllTiles()
+    public static GameObject InstantiateTile()
     {
-        var tiles = new List<Tile>();
-        foreach (var cell in Grid.AllCells())
-        {
-            if (cell.Tile != null)
-            {
-                tiles.Add(cell.Tile);
-            }
-        }
-        
-        return tiles;
-    }
-
-    public static IEnumerator MakeTiles(int q, int r, int s, int distance = 0)
-    {
-        foreach (var cell in Grid.GetCells(q, r, s, distance))
-        {
-            // Skip if tile has already been created
-            if (cell.Tile != null)
-            {
-                continue;
-            }
-
-            // Create tile
-            var tileObject = Instantiate(Instance.TilePrefab, Instance.transform);
-            var tile = tileObject.GetComponent<Tile>();
-            
-            // Link cell and tile
-            cell.LinkToTile(tile);
-            tile.LinkToCell(cell);
-
-            
-            // Tile reveal delay
-            yield return new WaitForSeconds(Instance.TileRevealDelay);
-        }
+        return Instantiate(Instance.TilePrefab, Instance.transform);
     }
 
     /// <summary>
-    /// Update visibility on all tiles.
+    /// Generate all cells in a region.
     /// </summary>
-    public static void UpdateVisibility()
+    public static IEnumerator GenerateRegion()
     {
-        foreach (var tile in AllTiles())
+        Debug.LogError("GenerateRegion is not implemented!");
+        yield return null;
+    }
+
+    /// <summary>
+    /// Reveal tiles around a location.
+    /// </summary>
+    public static IEnumerator RevealTiles(Hex position, int distance = 0)
+    {
+        foreach (var cell in Grid.GetCells(position.Q, position.R, position.S, distance))
         {
-            tile.UpdateVisibility();
+            // Skip if tile has already been revealed
+            if (cell.Tile.IsRevealed)
+            {
+                continue;
+            }
+            
+            cell.Tile.Reveal();
+            yield return new WaitForSeconds(Instance.TileRevealDelay);
         }
     }
 }

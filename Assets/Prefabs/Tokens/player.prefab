@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa46e7c69df417d9a02b3322df1dda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileCreationRange: 3
+  TileRevealRange: 3
 --- !u!114 &4248531258290637101
 MonoBehaviour:
   m_ObjectHideFlags: 0

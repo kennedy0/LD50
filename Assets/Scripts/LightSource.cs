@@ -15,11 +15,19 @@ public class LightSource : MonoBehaviour
     {
         _actor = GetComponent<Actor>();
     }
+    
+    /// <summary>
+    /// Called when the light source's cell changes
+    /// </summary>
+    public void OnCellChange(HexCell oldCell, HexCell newCell)
+    {
+        UpdateVisibility(oldCell, newCell);
+    }
 
     /// <summary>
     /// Update cell visibility after the light source has changed positions.
     /// </summary>
-    public void UpdateVisibility(HexCell oldCell, HexCell newCell)
+    private void UpdateVisibility(HexCell oldCell, HexCell newCell)
     {
         // Get list of cells to update
         var newCells = newCell != null ? Board.Grid.GetCells(newCell.Position, Radius) : new List<HexCell>();

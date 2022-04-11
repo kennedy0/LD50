@@ -11,12 +11,23 @@ public class TileRevealer : MonoBehaviour
     {
         _tileCtrl = transform.Find("tile_ctrl");
         _animator = _tileCtrl.GetComponent<TileAnimator>();
+        HideTileModels();
     }
 
-    private void Start()
+    /// <summary>
+    /// Hide the tile models.
+    /// </summary>
+    private void HideTileModels()
     {
-        SetRandomRotation();
-        StartCoroutine(DoReveal());
+        _tileCtrl.gameObject.SetActive(false);
+    }
+    
+    /// <summary>
+    /// Show the tile models
+    /// </summary>
+    private void ShowTileModels()
+    {
+        _tileCtrl.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -34,8 +45,10 @@ public class TileRevealer : MonoBehaviour
     /// Reveal the tile.
     /// Once it has been revealed, this component will be deleted.
     /// </summary>
-    private IEnumerator DoReveal()
+    public IEnumerator Reveal()
     {
+        ShowTileModels();
+        SetRandomRotation();
         yield return _animator.Flip();
         Destroy(this);
     }
