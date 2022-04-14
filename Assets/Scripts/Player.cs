@@ -9,13 +9,17 @@ public class Player : MonoBehaviour
     
     private static Player _instance;
     private Actor _actor;
+    private Inventory _inventory;
 
     public static Actor Actor => _instance._actor;
+
+    public static Inventory Inventory => _instance._inventory;
 
     private void Awake()
     {
         _instance = this;
         _actor = GetComponent<Actor>();
+        _inventory = GetComponent<Inventory>();
     }
 
     public static Transform Transform => _instance.transform;

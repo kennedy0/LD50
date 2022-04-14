@@ -88,6 +88,8 @@ public class HexCell
 
     public Actor Actor => _actor;
 
+    public bool Occupied => _actor != null;
+
     /// <summary>
     /// Get the distance to another cell.
     /// </summary>

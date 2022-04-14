@@ -1,4 +1,5 @@
 using Actions;
+using ExtensionMethods;
 using UnityEngine;
 
 [RequireComponent(typeof(Actor))]
@@ -21,29 +22,50 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
+        HexCell targetCell;
+        
+        // Get input to target cell
         if (Input.GetKey(KeyCode.Q))
         {
-            _actor.Action<Move>(_actor.Cell.NorthWest);
+            targetCell = _actor.Cell.NorthWest;
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            _actor.Action<Move>(_actor.Cell.North);
+            targetCell = _actor.Cell.North;
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            _actor.Action<Move>(_actor.Cell.NorthEast);
+            targetCell = _actor.Cell.NorthEast;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            _actor.Action<Move>(_actor.Cell.SouthWest);
+            targetCell = _actor.Cell.SouthWest;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            _actor.Action<Move>(_actor.Cell.South);
+            targetCell = _actor.Cell.South;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            _actor.Action<Move>(_actor.Cell.SouthEast);
+            targetCell = _actor.Cell.SouthEast;
+        }
+        else
+        {
+            return;
+        }
+
+        // Do action on target cell
+        if (!targetCell.Occupied)
+        {
+            _actor.Action<Move>(targetCell);
+        }
+        else if (targetCell.Actor.IsCollectable)
+        {
+            _actor.Action<Collect>(targetCell);
+        }
+        else if (targetCell.Actor.gameObject.HasComponent<Campfire>())
+        {
+            _actor.Action<Kindle>(targetCell);
         }
     }
 }

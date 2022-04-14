@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using ExtensionMethods;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Action = Actions.Action;
@@ -12,7 +13,7 @@ public class Actor : MonoBehaviour
     private HexCell _cell;
     private Token _token;
     private int _actions;
-    private bool _isIsVisible;
+    private bool _isVisible;
     
     private bool _actionReady;
     private bool _actionFinished;
@@ -25,7 +26,9 @@ public class Actor : MonoBehaviour
 
     public bool ActionReady => _actionReady;
 
-    public bool IsVisible => _isIsVisible;
+    public bool IsVisible => _isVisible;
+
+    public bool IsCollectable => gameObject.HasComponent<Collectable>();
 
     public override string ToString()
     {
@@ -37,7 +40,7 @@ public class Actor : MonoBehaviour
         _cell = null;
         _token = GetComponent<Token>();
         _actions = 1;
-        _isIsVisible = false;
+        _isVisible = false;
 
         _actionReady = false;
         _actionFinished = false;
@@ -159,7 +162,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     public void SetVisibility(bool visibility)
     {
-        _isIsVisible = visibility;
+        _isVisible = visibility;
         Token.UpdateVisibility();
     }
 }

@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Actor))]
 public class Campfire : MonoBehaviour
 {
+    public int Fuel = 50;
+    
     private Actor _actor;
 
     public HexCell Cell => _actor.Cell;
@@ -20,7 +22,24 @@ public class Campfire : MonoBehaviour
     {
         if (_actor.ActionReady)
         {
-            _actor.Action<Pass>(Cell);
+            Burn();
         }
+    }
+
+    /// <summary>
+    /// Burn fuel.
+    /// </summary>
+    private void Burn()
+    {
+        Fuel -= 1;
+        _actor.Action<Pass>(Cell);
+    }
+
+    /// <summary>
+    /// Spend wood to add fuel to the fire.
+    /// </summary>
+    public void Kindle(int wood)
+    {
+        Fuel += wood * 10;
     }
 }

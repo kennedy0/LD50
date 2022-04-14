@@ -16,7 +16,7 @@ public static class BoardGen
     public static void GenerateToken(HexCell cell)
     {
         // Don't place token on an occupied cell.
-        if (cell.Actor != null)
+        if (cell.Occupied)
         {
             return;
         }
