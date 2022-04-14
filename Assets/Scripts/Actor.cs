@@ -7,11 +7,13 @@ using Action = Actions.Action;
 [RequireComponent(typeof(Token))]
 public class Actor : MonoBehaviour
 {
+    public bool NoActions;
+    
     private HexCell _cell;
     private Token _token;
     private int _actions;
+    private bool _isIsVisible;
     
-    private bool _isTurn;
     private bool _actionReady;
     private bool _actionFinished;
     
@@ -21,9 +23,9 @@ public class Actor : MonoBehaviour
 
     public int Actions => _actions;
 
-    public bool IsTurn => _isTurn;
-
     public bool ActionReady => _actionReady;
+
+    public bool IsVisible => _isIsVisible;
 
     public override string ToString()
     {
@@ -35,12 +37,16 @@ public class Actor : MonoBehaviour
         _cell = null;
         _token = GetComponent<Token>();
         _actions = 1;
+        _isIsVisible = false;
 
-        _isTurn = false;
         _actionReady = false;
         _actionFinished = false;
-        
-        GameManager.AddActor(this);
+
+        // Only add the actor to the game manager if it can take actions.
+        if (!NoActions)
+        {
+            GameManager.AddActor(this);
+        }
     }
 
     /// <summary>
@@ -65,11 +71,14 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// Send updates to neighboring cells when the position changes.
+    /// Send updates to cells when the position changes.
     /// This logic happens here to avoid global updates after every action.
     /// </summary>
     private void OnCellChange(HexCell oldCell, HexCell newCell)
     {
+        oldCell?.UnsetActor();
+        newCell?.SetActor(this);
+        
         GetComponent<Player>()?.OnCellChange(oldCell, newCell);
         GetComponent<LightSource>()?.OnCellChange(oldCell, newCell);
     }
@@ -80,7 +89,6 @@ public class Actor : MonoBehaviour
     public IEnumerator BeforeTurn()
     {
         Debug.Log($"{this} turn start.");
-        _isTurn = true;
         yield return null;
     }
 
@@ -116,7 +124,6 @@ public class Actor : MonoBehaviour
     public IEnumerator AfterTurn()
     {
         Debug.Log($"{this} turn end.");
-        _isTurn = false;
         yield return null;
     }
 
@@ -145,5 +152,14 @@ public class Actor : MonoBehaviour
         Debug.Log(action.ActionText(this, target));
         yield return action.DoAction(this, target);
         _actionFinished = true;
+    }
+    
+    /// <summary>
+    /// Set the visibility of this actor.
+    /// </summary>
+    public void SetVisibility(bool visibility)
+    {
+        _isIsVisible = visibility;
+        Token.UpdateVisibility();
     }
 }

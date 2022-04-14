@@ -24,6 +24,12 @@ public class TokenManager : MonoBehaviour
     /// </summary>
     private static void CreateToken(GameObject tokenPrefab, HexCell cell)
     {
+        // Don't place a token on a cell that's already occupied.
+        if (cell.Actor != null)
+        {
+            Debug.LogError($"Cannot place a token on cell {cell}; it already has an actor: {cell.Actor}");
+        }
+
         // Instantiate object
         var tokenObject = Instantiate(tokenPrefab);
         SetName(tokenObject);

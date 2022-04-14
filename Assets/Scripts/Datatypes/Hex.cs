@@ -76,5 +76,18 @@ namespace Datatypes
             z = Utilities.TILE_SIZE * (Mathf.Sqrt(3f)/2f * Q + Mathf.Sqrt(3) * R) * -1;
             return new Vector3(x, 0f, z);
         }
+
+        public Region GetRegion()
+        {
+            var qh = (R + Region.SHIFT * Q) / Region.AREA;
+            var rh = (S + Region.SHIFT * R) / Region.AREA;
+            var sh = (Q + Region.SHIFT * S) / Region.AREA;
+            
+            var q = (1 + qh - rh) / 3;
+            var r = (1 + rh - sh) / 3;
+            var s = (1 + sh - qh) / 3;
+
+            return new Region(q, r, s);
+        }
     }
 }

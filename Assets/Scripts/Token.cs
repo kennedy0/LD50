@@ -8,6 +8,7 @@ using UnityEngine;
 public class Token : MonoBehaviour
 {
     private Actor _actor;
+    private TokenVisibility _tokenVisibility;
     private Transform _tokenCtrl;
     private TokenAnimator _animator;
 
@@ -19,6 +20,7 @@ public class Token : MonoBehaviour
     private void Awake()
     {
         _actor = GetComponent<Actor>();
+        _tokenVisibility = GetComponent<TokenVisibility>();
         _tokenCtrl = transform.Find("token_ctrl");
         _animator = GetComponent<TokenAnimator>();
     }
@@ -48,5 +50,13 @@ public class Token : MonoBehaviour
         // Calculate based on the cell position (which is y-zero) to avoid wonky rotations.
         var target = (facingTile.Cell.WorldPosition - currentTile.Cell.WorldPosition).normalized;
         _tokenCtrl.rotation = Quaternion.LookRotation(target);
+    }
+    
+    /// <summary>
+    /// Change the color on the tile if it's visible.
+    /// </summary>
+    public void UpdateVisibility()
+    {
+        StartCoroutine(_tokenVisibility.UpdateVisibility());
     }
 }

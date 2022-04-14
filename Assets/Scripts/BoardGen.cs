@@ -3,14 +3,6 @@
 public static class BoardGen
 {
     /// <summary>
-    /// Generate a terrain value for a cell.
-    /// </summary>
-    public static Terrain GenerateTerrain(HexCell cell)
-    {
-        return Terrain.Forest;
-    }
-
-    /// <summary>
     /// Generate a height value for a cell.
     /// </summary>
     public static int GenerateHeight(HexCell cell)
@@ -23,9 +15,16 @@ public static class BoardGen
     /// </summary>
     public static void GenerateToken(HexCell cell)
     {
-        if (Random.Range(0, 10) == 0)
+        // Don't place token on an occupied cell.
+        if (cell.Actor != null)
         {
-            // TokenManager.CreateWood(cell);
+            return;
+        }
+
+        // Random chance to create wood.
+        if (Random.Range(0, 50) == 0)
+        {
+            TokenManager.CreateWood(cell);
         }
     }
 }

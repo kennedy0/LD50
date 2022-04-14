@@ -11,10 +11,9 @@ public class HexCell
     private Tile _tile;
     
     private int _height;
-    private Terrain _terrain;
 
-    private bool _isVisibile;
-
+    private bool _isVisible;
+    private Actor _actor;
     
     public HexCell(int q, int r, int s)
     {
@@ -22,8 +21,12 @@ public class HexCell
         _r = r;
         _s = s;
 
+        _isVisible = false;
+        _actor = null;
+        
         InitRandomFeatures();
         CreateTile();
+        BoardGen.GenerateToken(this);
     }
 
     public override string ToString()
@@ -48,8 +51,6 @@ public class HexCell
     private void InitRandomFeatures()
     {
         _height = BoardGen.GenerateHeight(this);
-        _terrain = BoardGen.GenerateTerrain(this);
-        BoardGen.GenerateToken(this);
     }
 
     public HexGrid Grid => Board.Grid;
@@ -83,7 +84,9 @@ public class HexCell
 
     public List<HexCell> Neighbors => new List<HexCell>{North, South, NorthEast, NorthWest, SouthEast, SouthWest};
 
-    public bool IsVisible => _isVisibile;
+    public bool IsVisible => _isVisible;
+
+    public Actor Actor => _actor;
 
     /// <summary>
     /// Get the distance to another cell.
@@ -98,7 +101,34 @@ public class HexCell
     /// </summary>
     public void SetVisibility(bool visibility)
     {
-        _isVisibile = visibility;
+        _isVisible = visibility;
         Tile.UpdateVisibility();
+
+        if (Actor != null)
+        {
+            Actor.SetVisibility(visibility);
+        }
+    }
+
+    /// <summary>
+    /// Set the actor that is on this cell.
+    /// </summary>
+    public void SetActor(Actor actor)
+    {
+        // Make sure that the actor has been set to this cell.
+        if (actor.Cell != this)
+        {
+            Debug.Log($"Trying to set actor {actor} cell to {this}, but it is currently on cell {actor.Cell}");
+        }
+
+        _actor = actor;
+    }
+
+    /// <summary>
+    /// Unset the actor that is on this cell.
+    /// </summary>
+    public void UnsetActor()
+    {
+        _actor = null;
     }
 }

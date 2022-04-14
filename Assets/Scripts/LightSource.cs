@@ -15,7 +15,13 @@ public class LightSource : MonoBehaviour
     {
         _actor = GetComponent<Actor>();
     }
-    
+
+    public void Start()
+    {
+        // Since this is a light source, its cell should always be visible.
+        _actor.Cell.SetVisibility(true);
+    }
+
     /// <summary>
     /// Called when the light source's cell changes
     /// </summary>

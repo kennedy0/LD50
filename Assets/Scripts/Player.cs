@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
+        Debug.Log($"Region: {newCell.Position.GetRegion()}");
 
         // ToDo: Exit if the region did not change.
 

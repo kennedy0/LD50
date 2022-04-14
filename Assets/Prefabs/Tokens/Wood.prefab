@@ -72,6 +72,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8765957187149447054, guid: 58e7c5c0fffff994d9d3afd99f48b8c0, type: 3}
+      propertyPath: NoActions
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1947399512119214600, guid: 58e7c5c0fffff994d9d3afd99f48b8c0, type: 3}
       propertyPath: m_Name
       value: Wood
