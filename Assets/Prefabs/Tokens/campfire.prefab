@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e320702d6e44db4ca8c18f667e561cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Fuel: 50
+  WoodFx: {fileID: 3970761751637524745, guid: e99b7524a8f0d3d448fa8e5e1bfd0b53, type: 3}
 --- !u!114 &6078836888913433586
 MonoBehaviour:
   m_ObjectHideFlags: 0

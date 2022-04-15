@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Actions;
 using TMPro;
 using UnityEngine;
@@ -9,15 +7,19 @@ using UnityEngine;
 public class Campfire : MonoBehaviour
 {
     public int Fuel = 50;
+
+    // ToDo : Temp!
+    public GameObject WoodFx;
+    // ToDo : Temp!
     
     private Actor _actor;
-    private TextMeshProUGUI _text;
+    private TextMeshProUGUI _woodText;
 
     public HexCell Cell => _actor.Cell;
 
     private void Awake()
     {
-        _text = GameObject.Find("Wood Counter").GetComponent<TextMeshProUGUI>();
+        _woodText = GameObject.Find("Wood Counter").GetComponent<TextMeshProUGUI>();
         _actor = GetComponent<Actor>();
     }
 
@@ -43,7 +45,28 @@ public class Campfire : MonoBehaviour
     /// </summary>
     public void Kindle(int wood)
     {
-        _text.SetText("0");
+        // Update fuel count
         Fuel += wood * 10;
+        
+        // Play FX  - ToDo: Temp!
+        StartCoroutine(PlayWoodFx(wood));
+        
+        // Update UI
+        _woodText.SetText("0");
+    }
+
+    /// <summary>
+    /// ToDo: Temp!
+    /// </summary>
+    private IEnumerator PlayWoodFx(int count)
+    {
+        var pause = .1f;
+        for (var i = 0; i < count; i++)
+        {
+            var wood = Instantiate(WoodFx);
+            wood.transform.position = transform.position + (Vector3.up * 2f);
+            yield return new WaitForSeconds(pause);
+        }
     }
 }
+ 

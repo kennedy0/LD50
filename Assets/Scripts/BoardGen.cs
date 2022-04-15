@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Datatypes;
 using UnityEngine;
 
 public static class BoardGen
@@ -22,8 +23,15 @@ public static class BoardGen
             return;
         }
 
+        // // Don't place token close to the starting location
+        if (Hex.Distance(cell.Position, Hex.Zero) < 5)
+        {
+            return;
+        }
+
         // Random chance to create wood.
-        if (Random.Range(0, 50) == 0)
+        var chance = 20;
+        if (Random.Range(0, chance) == 0)
         {
             var actor = TokenManager.CreateWood(cell);
             

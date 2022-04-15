@@ -34,7 +34,7 @@ public class TokenAnimator : MonoBehaviour
     /// </summary>
     private void PlayPutDownSound()
     {
-        SoundEffects.SoundEffectsMaster.PlayWood();
+        SoundEffects.SoundEffectsMaster.PlaySoft();
     }
     
     /// <summary>
