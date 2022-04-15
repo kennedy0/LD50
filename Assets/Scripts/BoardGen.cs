@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class BoardGen
 {
@@ -24,7 +25,13 @@ public static class BoardGen
         // Random chance to create wood.
         if (Random.Range(0, 50) == 0)
         {
-            TokenManager.CreateWood(cell);
+            var actor = TokenManager.CreateWood(cell);
+            
+            // Set random rotation
+            var tokenCtrl = actor.transform.Find("token_ctrl");
+            var rotations = new List<float> { 0f, 60f, 120f, 180f, 240f, 300f};
+            var randomRotation = rotations[Random.Range(0, 6)];
+            tokenCtrl.localRotation = Quaternion.Euler(0f, randomRotation, 0f);
         }
     }
 }

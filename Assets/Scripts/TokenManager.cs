@@ -22,7 +22,7 @@ public class TokenManager : MonoBehaviour
     /// <summary>
     /// Create a token on a cell.
     /// </summary>
-    private static void CreateToken(GameObject tokenPrefab, HexCell cell)
+    private static Actor CreateToken(GameObject tokenPrefab, HexCell cell)
     {
         // Don't place a token on a cell that's already occupied.
         if (cell.Actor != null)
@@ -37,6 +37,8 @@ public class TokenManager : MonoBehaviour
         // Initialize actor 
         var actor = tokenObject.GetComponent<Actor>();
         actor.Place(cell);
+
+        return actor;
     }
 
     /// <summary>
@@ -48,18 +50,18 @@ public class TokenManager : MonoBehaviour
         go.name = go.name.Replace("(Clone)", "");
     }
 
-    public static void CreatePlayer(HexCell cell)
+    public static Actor CreatePlayer(HexCell cell)
     {
-        CreateToken(_instance.Player, cell);
+        return CreateToken(_instance.Player, cell);
     }
     
-    public static void CreateCampfire(HexCell cell)
+    public static Actor CreateCampfire(HexCell cell)
     {
-        CreateToken(_instance.Campfire, cell);
+        return CreateToken(_instance.Campfire, cell);
     }
 
-    public static void CreateWood(HexCell cell)
+    public static Actor CreateWood(HexCell cell)
     {
-        CreateToken(_instance.Wood, cell);
+        return CreateToken(_instance.Wood, cell);
     }
 }
