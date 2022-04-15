@@ -22,7 +22,7 @@ Material:
     m_Floats: []
     m_Colors:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FrontColor: {r: 0.318, g: 0.2429663, b: 0.13934831, a: 0}
-    - _SideColor: {r: 0.34901962, g: 0.15294118, b: 0.19020423, a: 0}
-    - _TopColor: {r: 0.04901849, g: 0.14117648, b: 0.005364713, a: 0}
+    - _FrontColor: {r: 0.608, g: 0.26618904, b: 0, a: 0}
+    - _SideColor: {r: 0.637, g: 0.5376518, b: 0, a: 0}
+    - _TopColor: {r: 0.087203704, g: 0.277, b: 0, a: 0}
   m_BuildTextureStacks: []
