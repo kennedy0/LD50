@@ -64,9 +64,8 @@ public class Campfire : MonoBehaviour
         for (var i = 0; i < count; i++)
         {
             var wood = Instantiate(WoodFx);
-            wood.transform.position = transform.position + (Vector3.up * 2f);
+            wood.transform.position = transform.position + (Vector3.up * 3.5f);
             yield return new WaitForSeconds(pause);
         }
     }
 }
- 

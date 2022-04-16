@@ -16,6 +16,7 @@ public class SoundEffects : MonoBehaviour
     public List<AudioClip> SoftMulti;
     public List<AudioClip> Wood;
     public List<AudioClip> WoodQuiet;
+    public List<AudioClip> Note;
 
     public static SoundEffects SoundEffectsMaster;
     
@@ -80,5 +81,10 @@ public class SoundEffects : MonoBehaviour
     public void PlayWoodQuiet()
     {
         _audioSource.PlayOneShot(WoodQuiet[Random.Range(0, WoodQuiet.Count)], _audioSource.volume);
+    }
+
+    public void PlayNote()
+    {
+        _audioSource.PlayOneShot(Note[Random.Range(0, Note.Count)], _audioSource.volume);
     }
 }

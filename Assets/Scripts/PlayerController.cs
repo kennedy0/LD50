@@ -65,7 +65,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (targetCell.Actor.gameObject.HasComponent<Campfire>())
         {
-            _actor.Action<Kindle>(targetCell);
+            if (FindObjectOfType<Inventory>().Wood > 0)
+            {
+                _actor.Action<Kindle>(targetCell);
+            }
+            else
+            {
+                _actor.Action<Examine>(targetCell);
+            }
+
         }
     }
 }

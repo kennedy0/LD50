@@ -16,7 +16,7 @@ public class WoodFx : MonoBehaviour
         
         var timer = 0f;
         var animationTime = .25f;
-        var distance = 3f;
+        var distance = 5f;
         
         Vector3 startPos = transform.position;
         Vector3 endPos = startPos + (Vector3.down * distance);
