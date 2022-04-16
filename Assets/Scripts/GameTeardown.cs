@@ -61,7 +61,7 @@ public class GameTeardown : MonoBehaviour
             }
 
             SoundEffects.SoundEffectsMaster.PlaySoft();
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.001f);
         }
     }
 
