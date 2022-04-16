@@ -39,4 +39,9 @@ public class CameraFollow : MonoBehaviour
     {
         _instance._target = transform;
     }
+
+    public static void UnsetTarget()
+    {
+        _instance._target = null;
+    }
 }

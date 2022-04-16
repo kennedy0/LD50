@@ -17,8 +17,7 @@ public class Description : MonoBehaviour
     public IEnumerator Describe()
     {
         // ToDo: All of this...
-        SoundEffects.SoundEffectsMaster.PlayNote();
-        yield return _textBox.DrawText(DescriptionText);
+        yield return _textBox.ShowTextBox(DescriptionText);
     }
 
 }

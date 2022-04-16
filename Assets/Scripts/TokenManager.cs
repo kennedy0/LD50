@@ -37,6 +37,7 @@ public class TokenManager : MonoBehaviour
         // Initialize actor 
         var actor = tokenObject.GetComponent<Actor>();
         actor.Place(cell);
+        SoundEffects.SoundEffectsMaster.PlayKnock();
 
         return actor;
     }

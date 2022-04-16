@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Datatypes;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSetup : MonoBehaviour
 {
@@ -17,15 +18,47 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     public static IEnumerator SetupGame()
     {
+        yield return FadeIn();
+        yield return CreateCampfire();
+        yield return CreatePlayer();
         yield return SetupBoard();
-
-        HexCell playerStart = Board.Grid.GetCell(Board.Instance.PlayerStartPosition);
-        TokenManager.CreatePlayer(playerStart);
-        
-        HexCell campfireStart = Board.Grid.GetCell(Board.Instance.CampfireStartPosition);
-        TokenManager.CreateCampfire(campfireStart);
-
         yield return SetupCamera();
+    }
+
+    /// <summary>
+    /// ToDo - Remove this after LD
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerator FadeIn()
+    {
+        // Show message
+        var tb = TextBox.Find();
+        yield return tb.ShowTextBox("Keep the fire lit.");
+        yield return tb.ShowTextBox("Use the keyboard to move.\nQWE\nASD");
+    }
+
+    /// <summary>
+    /// ToDo - Remove this after LD
+    /// </summary>
+    private static IEnumerator CreateCampfire()
+    {
+        yield return new WaitForSeconds(.5f);
+        HexCell campfireStart = Board.Grid.GetCell(Board.Instance.CampfireStartPosition);
+        yield return Board.RevealTiles(campfireStart.Position, 0);
+        TokenManager.CreateCampfire(campfireStart);
+        yield return new WaitForSeconds(1f);
+    }
+
+    /// <summary>
+    /// ToDo - Remove this after LD
+    /// </summary>
+    private static IEnumerator CreatePlayer()
+    {
+        yield return new WaitForSeconds(.5f);
+        HexCell playerStart = Board.Grid.GetCell(Board.Instance.PlayerStartPosition);
+        yield return Board.RevealTiles(playerStart.Position, 0);
+        TokenManager.CreatePlayer(playerStart);
+        yield return new WaitForSeconds(1f);
     }
 
     /// <summary>
@@ -33,6 +66,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private static IEnumerator SetupBoard()
     {
+        yield return new WaitForSeconds(1f);
         // ToDo: Generate the starting region
         yield return Board.GenerateRegion();
         
@@ -44,7 +78,7 @@ public class GameSetup : MonoBehaviour
             yield return Board.RevealTiles(Hex.Zero, i);
         }
     }
-
+    
     /// <summary>
     /// Set up the camera after the tokens have been created.
     /// </summary>

@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private ActorList _actors;
     private bool _exitGameLoop = false;
 
+    public static ActorList Actors => _instance._actors;
+
     private void Awake()
     {
         _instance = this;
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        
+        yield return GameTeardown.TearDownGame(_round);
     }
 
     /// <summary>
@@ -59,6 +63,11 @@ public class GameManager : MonoBehaviour
     {
         foreach (var actor in _actors)
         {
+            if (_exitGameLoop)
+            {
+                break;
+            }
+            
             yield return BeforeEachTurn();
             yield return actor.BeforeTurn();
             yield return actor.Turn();
@@ -100,5 +109,13 @@ public class GameManager : MonoBehaviour
     public static void AddActor(Actor actor)
     {
         _instance._actors.Add(actor);
+    }
+
+    /// <summary>
+    /// End the game.
+    /// </summary>
+    public static void EndGame()
+    {
+        _instance._exitGameLoop = true;
     }
 }

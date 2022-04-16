@@ -10,6 +10,7 @@ public class Campfire : MonoBehaviour
 
     // ToDo : Temp!
     public GameObject WoodFx;
+    public Description Description;
     // ToDo : Temp!
     
     private Actor _actor;
@@ -21,6 +22,12 @@ public class Campfire : MonoBehaviour
     {
         _woodText = GameObject.Find("Wood Counter").GetComponent<TextMeshProUGUI>();
         _actor = GetComponent<Actor>();
+    }
+
+    private void Start()
+    {
+        // Update Description - ToDo: Temp!
+        Description.DescriptionText = $"Rounds left: {Fuel}";
     }
 
     private void Update()
@@ -38,6 +45,13 @@ public class Campfire : MonoBehaviour
     {
         Fuel -= 1;
         _actor.Action<Pass>(Cell);
+        
+        // Update Description - ToDo: Temp!
+        Description.DescriptionText = $"Rounds left: {Fuel}";
+        if (Fuel <= 0)
+        {
+            GameManager.EndGame();
+        }
     }
 
     /// <summary>
